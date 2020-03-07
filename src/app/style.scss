@@ -1,0 +1,160 @@
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483a;
+$color-grey-dark-2: #6d5d4b;
+
+$color-black: black;
+$color-grey-dark: #777;
+
+// $color-blue: #4266b2;
+// $color-blue: #0747a6;
+$color-blue: #2196f3;
+$color-white: white;
+
+$default-font-size: 1.6rem;
+
+//$color-background: rgb(245, 94, 135, 0.5);
+
+// FONT VARIABLES
+$font-primary: "Nunito", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 93.75em; // 1500px
+$bp-large: 62.5em; // 1000px
+$bp-medium: 50em; // 800px;
+$bp-small: 43.75em; //700px
+$bp-smallest: 37.5em; // 600px;
+$bp-tiny: 31.25em; //500px
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: $color-white;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
+  background: white;
+  padding: 5px;
+  color: black;
+}
+
+%heading {
+  font-family: $font-display;
+  font-weight: 400;
+  color: $color-white;
+}
+
+.heading-1 {
+  @extend %heading;
+  font-size: 1.5rem;
+  color: $color-white;
+  line-height: 1;
+  font-weight: 400;
+  @media only screen and (max-width: $bp-smallest) {
+    font-size: 2rem;
+  }
+}
+
+.heading-2 {
+  @extend %heading;
+  font-size: 3rem;
+  font-weight: 700;
+  color: $color-secondary;
+  line-height: 1;
+}
+
+.heading-3 {
+  @extend %heading;
+  font-size: 2rem;
+  color: $color-primary;
+}
+
+.heading-4 {
+  @extend %heading;
+  font-size: 1.9rem;
+
+  &--light {
+    color: $color-grey-light-1;
+  }
+  &--dark {
+    color: $color-grey-dark-1;
+  }
+}
+
+.btn {
+  background-color: $color-primary;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-family: $font-display;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.8rem 3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+}
+
+.mb-sm {
+  margin-bottom: 2rem;
+}
+.mb-md {
+  margin-bottom: 3rem;
+}
+.mb-lg {
+  margin-bottom: 4rem;
+}
+.mb-hg {
+  margin-bottom: 8rem;
+}
+
+.mt-sm {
+  margin-top: 2rem;
+}
+.mt-md {
+  margin-top: 3rem;
+}
+.mt-lg {
+  margin-top: 4rem;
+}
+.mt-hg {
+  margin-top: 8rem;
+}
+
+.align_center {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,70 @@
+@import "../style.scss";
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.sidenav-container {
+  height: 100vh;
+}
+
+.mat-sidenav {
+  min-width: 4rem;
+  max-width: 28%;
+  height: 100vh;
+  background-color: $color-blue;
+}
+
+.mat-toolbar {
+  background-color: $color-blue;
+}
+
+.mat-sidenav-content {
+  .mat-toolbar {
+    background-color: $color-blue;
+
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.has-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-list {
+  padding-top: 0;
+}
+
+.mat-list-item {
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.menu-button {
+  margin-right: 1rem;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  padding-top: 2rem;
+}
+
+.icon {
+  display: flex;
+  align-self: flex-end;
+  width: 2rem;
+  height: 2rem;
+  fill: $color-white;
+}
+
+.page-title {
+  color: white;
+}

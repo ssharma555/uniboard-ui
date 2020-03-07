@@ -1,0 +1,26 @@
+{
+  "generator-ngx-rocket": {
+    "version": "7.1.0",
+    "props": {
+      "location": "path",
+      "strict": false,
+      "skipInstall": false,
+      "skipQuickstart": false,
+      "initGit": true,
+      "appName": "omniboard",
+      "target": ["web"],
+      "pwa": true,
+      "ui": "material",
+      "layout": "side-menu",
+      "auth": true,
+      "lazy": false,
+      "angulartics": false,
+      "tools": ["prettier", "hads"],
+      "utility": [],
+      "projectName": "omniboard",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": []
+    }
+  }
+}
