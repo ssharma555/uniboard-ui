@@ -1,0 +1,87 @@
+<div class="form-wrapper">
+  <form [formGroup]="newReleaseForm">
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Release Name</mat-label>
+        <input matInput matTooltip="Info about Release" type="text" formControlName="releaseName" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Release Tag</mat-label>
+        <input matInput type="text" formControlName="releaseTag" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Requirement Freeze</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="requirementFreeze" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Feature Freeze</mat-label>
+        <input matInput [matDatepicker]="pickerfeature" formControlName="featureFreeze" />
+        <mat-datepicker-toggle matSuffix [for]="pickerfeature"></mat-datepicker-toggle>
+        <mat-datepicker #pickerfeature></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Code Freeze</mat-label>
+        <input matInput [matDatepicker]="pickerCode" formControlName="codeFreeze" />
+        <mat-datepicker-toggle matSuffix [for]="pickerCode"></mat-datepicker-toggle>
+        <mat-datepicker #pickerCode></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>UAT Completion</mat-label>
+        <input matInput [matDatepicker]="pickerUat" formControlName="uatCompletion" />
+        <mat-datepicker-toggle matSuffix [for]="pickerUat"></mat-datepicker-toggle>
+        <mat-datepicker #pickerUat></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Release Date</mat-label>
+        <input matInput [matDatepicker]="pickerReleasedate" formControlName="releaseDate" />
+        <mat-datepicker-toggle matSuffix [for]="pickerReleasedate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerReleasedate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-element-requirement">
+      <mat-form-field appearance="legacy">
+        <mat-label>Requirement Document</mat-label>
+        <input matInput type="text" formControlName="requirementDocument" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field appearance="legacy">
+        <mat-label>Release Note</mat-label>
+        <input matInput type="text" formControlName="releaseNote" />
+      </mat-form-field>
+    </div>
+  </form>
+  <div>
+    <mat-error>
+      {{ errorMessage }}
+    </mat-error>
+  </div>
+  <div *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="submit">
+    <button mat-raised-button color="primary" (click)="onSubmitReleaseForm()">Create Release</button>
+  </div>
+</div>

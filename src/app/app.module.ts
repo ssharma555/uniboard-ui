@@ -1,3 +1,4 @@
+import { ReleaseManagementModule } from './release-manager-overview/release-manager-module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@ import { ApiService } from './services/api.service';
     HomeModule,
     AboutModule,
     BuildOverviewModule,
+    ReleaseManagementModule,
     LoginModule,
     AppRoutingModule,
     MatTableModule,
