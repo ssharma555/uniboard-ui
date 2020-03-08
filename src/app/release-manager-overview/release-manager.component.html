@@ -1,3 +1,8 @@
 <div class="btn-container">
-  <button mat-raised-button color="primary" (click)="addReleaseForm()">+ Create Release</button>
+  <button mat-raised-button color="primary" class="release-btn" (click)="addReleaseForm()">
+    <svg class="icon-add">
+      <use xlink:href="../../assets/symbols.svg#icon-plus"></use>
+    </svg>
+    <span class="release-btn-text">New Release</span>
+  </button>
 </div>

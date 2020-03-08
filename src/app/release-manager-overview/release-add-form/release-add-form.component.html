@@ -3,21 +3,39 @@
     <div class="form-element">
       <mat-form-field appearance="legacy">
         <mat-label>Release Name</mat-label>
-        <input matInput matTooltip="Info about Release" type="text" formControlName="releaseName" />
+        <input
+          matInput
+          matTooltip="Provide a Suitable Name for this Release"
+          matTooltipPosition="right"
+          type="text"
+          formControlName="releaseName"
+        />
       </mat-form-field>
     </div>
 
     <div class="form-element">
       <mat-form-field appearance="legacy">
         <mat-label>Release Tag</mat-label>
-        <input matInput type="text" formControlName="releaseTag" />
+        <input
+          matInput
+          type="text"
+          matTooltip="Create a Release Version in Jira and mention it here"
+          matTooltipPosition="right"
+          formControlName="releaseTag"
+        />
       </mat-form-field>
     </div>
 
     <div class="form-element">
       <mat-form-field appearance="legacy">
-        <mat-label>Requirement Freeze</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="requirementFreeze" />
+        <mat-label>Requirement Freeze Date</mat-label>
+        <input
+          matInput
+          matTooltip="Date by which Requirements should be Finalized"
+          matTooltipPosition="right"
+          [matDatepicker]="picker"
+          formControlName="requirementFreeze"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -25,8 +43,14 @@
 
     <div class="form-element">
       <mat-form-field appearance="legacy">
-        <mat-label>Feature Freeze</mat-label>
-        <input matInput [matDatepicker]="pickerfeature" formControlName="featureFreeze" />
+        <mat-label>Feature Freeze Date</mat-label>
+        <input
+          matInput
+          matTooltip="Date by which all the Features Must be Developed"
+          matTooltipPosition="right"
+          [matDatepicker]="pickerfeature"
+          formControlName="featureFreeze"
+        />
         <mat-datepicker-toggle matSuffix [for]="pickerfeature"></mat-datepicker-toggle>
         <mat-datepicker #pickerfeature></mat-datepicker>
       </mat-form-field>
@@ -34,26 +58,38 @@
 
     <div class="form-element">
       <mat-form-field appearance="legacy">
-        <mat-label>Code Freeze</mat-label>
-        <input matInput [matDatepicker]="pickerCode" formControlName="codeFreeze" />
+        <mat-label>Code Freeze Date</mat-label>
+        <input
+          matInput
+          matTooltip="Date by which Testing must be Completed and Bugs are Fixed"
+          matTooltipPosition="right"
+          [matDatepicker]="pickerCode"
+          formControlName="codeFreeze"
+        />
         <mat-datepicker-toggle matSuffix [for]="pickerCode"></mat-datepicker-toggle>
         <mat-datepicker #pickerCode></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <div class="form-element">
+    <!-- <div class="form-element">
       <mat-form-field appearance="legacy">
-        <mat-label>UAT Completion</mat-label>
+        <mat-label>UAT Completion Date</mat-label>
         <input matInput [matDatepicker]="pickerUat" formControlName="uatCompletion" />
         <mat-datepicker-toggle matSuffix [for]="pickerUat"></mat-datepicker-toggle>
         <mat-datepicker #pickerUat></mat-datepicker>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="form-element">
       <mat-form-field appearance="legacy">
-        <mat-label>Release Date</mat-label>
-        <input matInput [matDatepicker]="pickerReleasedate" formControlName="releaseDate" />
+        <mat-label>Product Release Date</mat-label>
+        <input
+          matInput
+          matTooltip="Time for Celebration"
+          matTooltipPosition="right"
+          [matDatepicker]="pickerReleasedate"
+          formControlName="releaseDate"
+        />
         <mat-datepicker-toggle matSuffix [for]="pickerReleasedate"></mat-datepicker-toggle>
         <mat-datepicker #pickerReleasedate></mat-datepicker>
       </mat-form-field>
@@ -62,14 +98,29 @@
     <div class="url-form-element">
       <mat-form-field appearance="legacy" class="url-field">
         <mat-label>Requirement Document</mat-label>
-        <input matInput type="text" formControlName="requirementDocument" />
+        <textarea
+          matInput
+          matTooltip="Requirement Document for this Release"
+          matTooltipPosition="right"
+          matTextareaAutosize
+          minRows="1"
+          formControlName="requirementDocument"
+        ></textarea>
       </mat-form-field>
     </div>
 
     <div class="url-form-element">
       <mat-form-field appearance="legacy" class="url-field">
         <mat-label>Release Note</mat-label>
-        <input matInput type="text" formControlName="releaseNote" />
+        <!-- <input type="url" matInput type="text" formControlName="releaseNote" /> -->
+        <textarea
+          matInput
+          matTooltip="Release Note"
+          matTooltipPosition="right"
+          matTextareaAutosize
+          minRows="1"
+          formControlName="releaseNote"
+        ></textarea>
       </mat-form-field>
     </div>
   </form>
@@ -82,6 +133,8 @@
     {{ successMessage }}
   </div>
   <div class="submit">
-    <button mat-raised-button color="primary" (click)="onSubmitReleaseForm()">Create Release</button>
+    <button mat-raised-button color="primary" (click)="onSubmitReleaseForm()" class="release-btn">
+      Create Release
+    </button>
   </div>
 </div>

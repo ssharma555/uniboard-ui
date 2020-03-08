@@ -1,7 +1,26 @@
+@import "../style.scss";
+
 .btn-container {
   margin-top: 1rem;
   margin-right: 1rem;
   display: flex;
   flex-direction: row-reverse;
   justify-content: end;
+}
+
+.icon-add {
+  width: 1rem;
+  height: 1rem;
+  fill: white;
+}
+
+.release-btn {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  &-text {
+    margin-left: 0.5rem;
+  }
 }

@@ -18,17 +18,28 @@
             <span translate>Home</span>
           </a> -->
           <!-- <mat-divider></mat-divider> -->
-          <div class="icon-container" routerLink="/build">
+          <div
+            matTooltip="Monitor Micro Service Level Build Status"
+            [matTooltipPosition]="position.value"
+            class="icon-container"
+            routerLink="/build"
+          >
             <svg class="icon">
               <use xlink:href="../../assets/symbols.svg#icon-hammer"></use>
             </svg>
           </div>
-          <!-- <mat-divider></mat-divider> -->
+
+          <mat-divider></mat-divider>
         </mat-list>
         <mat-list>
-          <div class="icon-container" routerLink="/release">
+          <div
+            class="icon-container"
+            matTooltip="Monitor and Manage Product Releases"
+            [matTooltipPosition]="position.value"
+            routerLink="/release"
+          >
             <svg class="icon">
-              <use xlink:href="../../assets/symbols.svg#icon-hammer"></use>
+              <use xlink:href="../../assets/symbols.svg#icon-directions_run"></use>
             </svg>
           </div>
         </mat-list>

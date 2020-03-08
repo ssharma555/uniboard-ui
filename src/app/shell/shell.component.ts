@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MediaObserver } from '@angular/flex-layout';
 
 import { AuthenticationService, CredentialsService, I18nService } from '@app/core';
+import { TooltipPosition } from '@angular/material/tooltip';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-shell',
@@ -11,6 +13,9 @@ import { AuthenticationService, CredentialsService, I18nService } from '@app/cor
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
+  positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
+  position = new FormControl(this.positionOptions[3]);
+
   constructor(
     private router: Router,
     private titleService: Title,

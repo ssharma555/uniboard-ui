@@ -158,3 +158,26 @@ ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
   display: flex;
   justify-content: center;
 }
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  padding-top: 2rem;
+  background-color: transparent;
+}
+
+.icon {
+  display: flex;
+  align-self: flex-end;
+  width: 2rem;
+  height: 2rem;
+  fill: $color-white;
+  // pointer-events: none;
+
+  &:hover {
+    // transform: translateX(-0.5rem) translateY(-0.5rem) scale(1.2);
+    // transform: scale(1.5);
+  }
+}
