@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BuildInfo } from '@app/models/api.models';
+import { BuildInfo, AutoSuggest } from '@app/models/api.models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,20 @@ export class ApiService {
     })
   };
 
-  getBuildDetails() {
-    return this.http.get<BuildInfo>(this.baseUrl + '/function/omniboard/get_build_details', this.httpOptions);
-    //return this.http.get<BuildInfo>(this.baseUrl)
+  getBuildDetails(sort_order: string, page: number) {
+    sort_order = sort_order ? sort_order : 'asc';
+    console.log(sort_order);
+    return this.http.get<BuildInfo>(
+      this.baseUrl + '/function/omniboard/get_build_details/' + page + '/' + sort_order,
+      this.httpOptions
+    );
+  }
+
+  getBuildCount() {
+    return this.http.get(this.baseUrl + '/function/omniboard/get_build_count/', this.httpOptions);
+  }
+
+  autoCompleteSuggestion(text: string) {
+    return this.http.get<AutoSuggest[]>(this.baseUrl + '/function/omniboard/auto_suggest/' + text, this.httpOptions);
   }
 }

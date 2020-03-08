@@ -10,30 +10,6 @@
       <mat-toolbar>
         <span translate class="heading-1">APP_NAME</span>
         <div fxFlex></div>
-        <!-- <div>
-          <button mat-icon-button [matMenuTriggerFor]="userMenu" translate>
-            <mat-icon>person</mat-icon>
-          </button>
-          <mat-menu #userMenu="matMenu">
-            <mat-list>
-              <mat-list-item>
-                <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
-              </mat-list-item>
-              <mat-divider></mat-divider>
-            </mat-list>
-            <button mat-menu-item (click)="logout()" translate>Logout</button>
-          </mat-menu>
-        </div> -->
-        <!-- <div>
-          <button mat-icon-button [matMenuTriggerFor]="languageMenu">
-            <mat-icon>language</mat-icon>
-          </button>
-          <mat-menu #languageMenu="matMenu">
-            <button mat-menu-item *ngFor="let language of languages" (click)="setLanguage(language)">
-              {{ language }}
-            </button>
-          </mat-menu>
-        </div> -->
       </mat-toolbar>
       <nav>
         <mat-list>
@@ -63,7 +39,14 @@
         <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
           <mat-icon>menu</mat-icon>
         </button>
-        <span class="page-title">{{ title }}</span>
+        <div class="top-navbar-elements">
+          <span class="page-title">{{ title }}</span>
+          <app-search class="search-bar"></app-search>
+          <img
+            class="profile-img"
+            src="https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:343329ee-44a6-4f58-a6f9-939814225258/6220d4fd-3888-4fbc-85a1-77b7813b81fd/128"
+          />
+        </div>
       </mat-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

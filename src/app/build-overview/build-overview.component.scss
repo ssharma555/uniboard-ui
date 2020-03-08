@@ -12,16 +12,38 @@
   fill: green;
 }
 
-.icon-failure {
+@mixin refresh_btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+@mixin icon {
   display: flex;
   align-self: flex-end;
   width: 2rem;
   height: 2rem;
+}
+
+.icon-failure {
+  @include icon();
   fill: red;
+}
+
+.icon-refresh {
+  @include icon();
+  fill: $color-primary;
+}
+
+.btn-refresh {
+  @include refresh_btn();
 }
 
 td {
   cursor: pointer;
+  font-size: 1.1rem;
 }
 
 th {
@@ -39,4 +61,13 @@ th {
   height: 100%;
   width: 100%;
   background-color: red($color: #000000);
+}
+
+.mat-row {
+  -webkit-transition: red 0.4s ease-in-out;
+  transition: red 0.4s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
 }

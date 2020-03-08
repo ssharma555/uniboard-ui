@@ -1,0 +1,31 @@
+<form class="example-form" [formGroup]="usersForm">
+  <mat-form-field class="example-full-width">
+    <input
+      #q="matInput"
+      matInput
+      #firstname="matInput"
+      placeholder="Search Query"
+      [matAutocomplete]="auto"
+      formControlName="userInput"
+      [(ngModel)]="value"
+    />
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="removedQuery()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <!-- <mat-option  class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option> -->
+    <ng-container>
+      <mat-option *ngFor="let result of searchResults" [value]="result" (click)="selectedOption(result)">
+        <span class="search-key">{{ result.value }}</span>
+        <small> in </small>
+        <span class="search-field">{{ result.field }}</span>
+      </mat-option>
+      <mat-option *ngIf="searchResults.length == 0">
+        <small>No Result Found For Query: </small>
+        <span class="search-key">{{ searchQuery }}</span>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</form>

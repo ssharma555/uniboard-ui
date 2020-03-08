@@ -30,3 +30,9 @@ export interface Info {
 export interface BuildInfo {
   result: Info[];
 }
+
+export interface AutoSuggest {
+  field: string;
+  value: string;
+  display_key: string;
+}
