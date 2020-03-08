@@ -9,7 +9,7 @@
     margin-left: 2rem;
     margin-top: 1rem;
     justify-content: space-between;
-    .form-element-requirement {
+    .url-form-element {
       flex: 100%;
       width: 100%;
     }
@@ -22,5 +22,9 @@
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+  }
+
+  .url-field {
+    width: 80%;
   }
 }
