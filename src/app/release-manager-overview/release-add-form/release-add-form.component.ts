@@ -21,6 +21,7 @@ export class ReleaseAddFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
 
+  toolTipDelay = 300;
   ngOnInit() {
     this.createForm();
   }

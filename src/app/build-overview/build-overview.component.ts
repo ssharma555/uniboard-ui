@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '@app/services/api.service';
-import { BuildInfo, Info, AutoSuggest } from '@app/models/api.models';
+import { Info, AutoSuggest } from '@app/models/api.models';
 import { startWith, switchMap, map, share } from 'rxjs/operators';
 import { merge, Subscription } from 'rxjs';
 import { ActionService } from '@app/services/action.service';
@@ -32,7 +32,7 @@ export class BuildOverviewComponent implements OnInit {
   constructor(private apiService: ApiService, private actionService: ActionService) {}
 
   ngOnInit() {
-    this.apiService.getBuildCount().subscribe(x => (this.buildCount = x['result'][0]['count']));
+    this.apiService.getBuildCount().subscribe(x => (this.buildCount = x['total']));
     console.log('INitialized build');
     this.autoSuggestSub = this.actionService.searchQuery.subscribe((query: AutoSuggest) => {
       console.log('Received in Build Overview = ', query);
@@ -53,7 +53,8 @@ export class BuildOverviewComponent implements OnInit {
       }),
       map(data => {
         this.isLoadingResults = false;
-        return data.result;
+        console.log(data);
+        return data;
       })
     );
   }

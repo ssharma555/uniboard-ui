@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
           this.searchQuery = value;
         }),
         switchMap(value => {
-          return this.apiService.autoCompleteSuggestion(value).pipe(
+          return this.apiService.autoCompleteSuggestion(value, 'build').pipe(
             finalize(() => {
               this.isLoading = false;
               this.isInitialized = true;
@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit {
       )
       .subscribe(suggestion => {
         console.log('Search Happened');
-        this.searchResults = suggestion['result'];
+        this.searchResults = suggestion;
       });
   }
 
@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
 
   displayFn(searchResults: AutoSuggest) {
     if (searchResults) {
-      return searchResults.field + ' = ' + searchResults.value;
+      return searchResults.key + ' = ' + searchResults.value;
     }
   }
 

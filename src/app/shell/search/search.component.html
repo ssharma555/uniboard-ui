@@ -20,9 +20,9 @@
       <mat-option *ngFor="let result of searchResults" [value]="result" (click)="selectedOption(result)">
         <span class="search-key">{{ result.value }}</span>
         <small> in </small>
-        <span class="search-field">{{ result.field }}</span>
+        <span class="search-field">{{ result.key }}</span>
       </mat-option>
-      <mat-option *ngIf="searchResults.length == 0">
+      <mat-option *ngIf="searchResults">
         <small>No Result Found For Query: </small>
         <span class="search-key">{{ searchQuery }}</span>
       </mat-option>

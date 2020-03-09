@@ -11,7 +11,8 @@ export interface Statistics {
 
 export interface TestSummary {
   status: string;
-  statistics: Statistics;
+  id: string;
+  statistics: Executions;
 }
 
 export interface Info {
@@ -32,7 +33,7 @@ export interface BuildInfo {
 }
 
 export interface AutoSuggest {
-  field: string;
+  key: string;
   value: string;
   display_key: string;
 }

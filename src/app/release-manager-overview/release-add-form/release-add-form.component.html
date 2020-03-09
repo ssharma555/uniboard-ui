@@ -6,6 +6,7 @@
         <input
           matInput
           matTooltip="Provide a Suitable Name for this Release"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           type="text"
           formControlName="releaseName"
@@ -20,6 +21,7 @@
           matInput
           type="text"
           matTooltip="Create a Release Version in Jira and mention it here"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           formControlName="releaseTag"
         />
@@ -32,6 +34,7 @@
         <input
           matInput
           matTooltip="Date by which Requirements should be Finalized"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           [matDatepicker]="picker"
           formControlName="requirementFreeze"
@@ -47,6 +50,7 @@
         <input
           matInput
           matTooltip="Date by which all the Features Must be Developed"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           [matDatepicker]="pickerfeature"
           formControlName="featureFreeze"
@@ -62,6 +66,7 @@
         <input
           matInput
           matTooltip="Date by which Testing must be Completed and Bugs are Fixed"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           [matDatepicker]="pickerCode"
           formControlName="codeFreeze"
@@ -86,6 +91,7 @@
         <input
           matInput
           matTooltip="Time for Celebration"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTooltipPosition="right"
           [matDatepicker]="pickerReleasedate"
           formControlName="releaseDate"
@@ -101,7 +107,8 @@
         <textarea
           matInput
           matTooltip="Requirement Document for this Release"
-          matTooltipPosition="right"
+          matTooltipPosition="below"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTextareaAutosize
           minRows="1"
           formControlName="requirementDocument"
@@ -116,7 +123,8 @@
         <textarea
           matInput
           matTooltip="Release Note"
-          matTooltipPosition="right"
+          matTooltipPosition="below"
+          matTooltipShowDelay="{{ toolTipDelay }}"
           matTextareaAutosize
           minRows="1"
           formControlName="releaseNote"
