@@ -56,7 +56,7 @@
 
       <ng-container matColumnDef="build_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Build Date</th>
-        <td mat-cell *matCellDef="let row">{{ row.build_date }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.build_date | date }}</td>
       </ng-container>
 
       <ng-container matColumnDef="star" stickyEnd>

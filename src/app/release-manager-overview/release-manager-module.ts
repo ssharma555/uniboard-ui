@@ -8,6 +8,7 @@ import { ReleaseDetailsComponent } from './release-details/release-details.compo
 import { ReleaseAddFormComponent } from './release-add-form/release-add-form.component';
 import { MaterialModule } from '@app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
     FlexLayoutModule,
     MaterialModule,
-    ReleaseManagementRoutingModule
+    ReleaseManagementRoutingModule,
+    BrowserAnimationsModule
   ],
   declarations: [ReleaseManagerComponent, ReleaseDetailsComponent, ReleaseAddFormComponent],
   entryComponents: [ReleaseAddFormComponent]

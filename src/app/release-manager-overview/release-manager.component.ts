@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReleaseAddFormComponent } from './release-add-form/release-add-form.component';
+import { Release } from '@app/models/api.models';
+import { ApiService } from '@app/services/api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-release-manager',
@@ -8,9 +11,21 @@ import { ReleaseAddFormComponent } from './release-add-form/release-add-form.com
   styleUrls: ['./release-manager.component.scss']
 })
 export class ReleaseManagerComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  releaseList: Release[];
+  releaseSub: Subscription;
 
-  ngOnInit() {}
+  constructor(public dialog: MatDialog, private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.releaseSub = this.apiService.getRelease().subscribe(release => {
+      this.releaseList = release;
+      console.log(this.releaseList);
+    });
+  }
+
+  ngOnDestroy() {
+    this.releaseSub.unsubscribe();
+  }
 
   addReleaseForm() {
     const dialogRef = this.dialog.open(ReleaseAddFormComponent, {

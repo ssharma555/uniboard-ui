@@ -5,7 +5,6 @@ import { startWith, map, debounceTime, tap, switchMap, finalize } from 'rxjs/ope
 import { ApiService } from '@app/services/api.service';
 import { AutoSuggest } from '@app/models/api.models';
 import { ActionService } from '@app/services/action.service';
-import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-search',
@@ -21,6 +20,8 @@ export class SearchComponent implements OnInit {
   isInitialized: boolean = false;
   value: any = null;
   searchQuery = '';
+  context = '';
+  contextSub: Subscription;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private actionService: ActionService) {}
 
@@ -39,7 +40,7 @@ export class SearchComponent implements OnInit {
           this.searchQuery = value;
         }),
         switchMap(value => {
-          return this.apiService.autoCompleteSuggestion(value, 'build').pipe(
+          return this.apiService.autoCompleteSuggestion(value, this.context).pipe(
             finalize(() => {
               this.isLoading = false;
               this.isInitialized = true;
@@ -51,6 +52,12 @@ export class SearchComponent implements OnInit {
         console.log('Search Happened');
         this.searchResults = suggestion;
       });
+
+    this.contextSub = this.actionService.contextEmitter.subscribe((x: string) => (this.context = x));
+  }
+
+  ngOnDestroy() {
+    this.contextSub.unsubscribe();
   }
 
   ngAfterViewInit() {

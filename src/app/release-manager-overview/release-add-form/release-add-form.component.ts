@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Release } from '@app/models/api.models';
+import { ApiService } from '@app/services/api.service';
 
 @Component({
   selector: 'app-release-add-form',
@@ -19,7 +21,7 @@ export class ReleaseAddFormComponent implements OnInit {
   successMessage: string;
   stringPattern = /^\S*$/;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private apiService: ApiService) {}
 
   toolTipDelay = 300;
   ngOnInit() {
@@ -40,40 +42,48 @@ export class ReleaseAddFormComponent implements OnInit {
     });
   }
 
+  convertDateFormat(date: any) {
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
+  }
+
   onSubmitReleaseForm() {
-    if (this.newReleaseForm.valid) {
-      this.errorMessage = '';
-      this.successMessage = 'Submitted successfully';
-    } else {
-      this.errorMessage = 'Please Enter Correct Data In All The Fields';
-    }
-    const allDates = [];
-    allDates.push(
-      (this.requirementFreeze = this.datePipe.transform(this.newReleaseForm.value.requirementFreeze, 'dd-MM-yyyy'))
-    );
-    allDates.push(
-      (this.featureFreeze = this.datePipe.transform(this.newReleaseForm.value.featureFreeze, 'dd-MM-yyyy'))
-    );
-    allDates.push((this.codeFreeze = this.datePipe.transform(this.newReleaseForm.value.codeFreeze, 'dd-MM-yyyy')));
-    this.uatCompletion = this.datePipe.transform(this.newReleaseForm.value.uatCompletion, 'dd-MM-yyyy');
-    if (this.uatCompletion) {
-      allDates.push(this.uatCompletion);
-    }
-    allDates.push((this.releaseDate = this.datePipe.transform(this.newReleaseForm.value.releaseDate, 'dd-MM-yyyy')));
-    // Validation for all the valid dates
-    const nonValidDateFormat = allDates.some(el => {
-      return el === null;
+    // if (this.newReleaseForm.valid) {
+    //   this.errorMessage = '';
+    //   this.successMessage = 'Submitted successfully';
+    // } else {
+    //   this.errorMessage = 'Please Enter Correct Data In All The Fields';
+    // }
+    // const allDates = [];
+    // allDates.push(
+    //   (this.requirementFreeze = this.datePipe.transform(this.newReleaseForm.value.requirementFreeze, 'dd-MM-yyyy'))
+    // );
+    // allDates.push(
+    //   (this.featureFreeze = this.datePipe.transform(this.newReleaseForm.value.featureFreeze, 'dd-MM-yyyy'))
+    // );
+    // allDates.push((this.codeFreeze = this.datePipe.transform(this.newReleaseForm.value.codeFreeze, 'dd-MM-yyyy')));
+    // this.uatCompletion = this.datePipe.transform(this.newReleaseForm.value.this.newReleaseForm.value.newReleaseForm.valueion, 'dd-MM-yyyy');
+    // if (this.uatCompletion) {
+    //   allDates.push(this.uatCompletion);
+    // }
+    // allDates.push((this.releaseDate = this.datePipe.transform(this.newReleaseForm.value.releaseDate, 'dd-MM-yyyy')));
+    // // Validation for all the valid dates
+    // const nonValidDateFormat = allDates.some(el => {
+    //   return el === null;
+    // });
+    // if (nonValidDateFormat) {
+    //   this.errorMessage = 'Please Enter Valid Date Format';
+    // } else {
+
+    //   for (let i = 0; i < allDates.length; i++) {
+    //     if (allDates[i] > allDates[i + 1]) {
+    //       this.errorMessage = 'Former Date Cannot Be Greater Than Future Date';
+    //     }
+    //   }
+    // }
+    var release: Release = this.newReleaseForm.value;
+    console.log(release);
+    this.apiService.createRelease(release).subscribe(x => {
+      console.log('Created release ', x);
     });
-    if (nonValidDateFormat) {
-      this.errorMessage = 'Please Enter Valid Date Format';
-    } else {
-      // tslint:disable-next-line:prefer-for-of
-      // Validation to check dates are in assending order
-      for (let i = 0; i < allDates.length; i++) {
-        if (allDates[i] > allDates[i + 1]) {
-          this.errorMessage = 'Former Date Cannot Be Greater Than Future Date';
-        }
-      }
-    }
   }
 }

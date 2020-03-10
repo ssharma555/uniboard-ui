@@ -37,3 +37,20 @@ export interface AutoSuggest {
   value: string;
   display_key: string;
 }
+
+export interface Filter {
+  key: string;
+  value: string;
+}
+
+export interface Release {
+  id: string;
+  releaseName: string;
+  releaseTag: string;
+  requirementFreeze: Date;
+  featureFreeze: Date;
+  codeFreeze: Date;
+  releaseDate: Date;
+  releaseNote: string;
+  requirementDocument: string;
+}

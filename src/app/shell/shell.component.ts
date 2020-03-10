@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MediaObserver } from '@angular/flex-layout';
 
 import { AuthenticationService, CredentialsService, I18nService } from '@app/core';

@@ -3,10 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '@app/services/api.service';
-import { Info, AutoSuggest } from '@app/models/api.models';
-import { startWith, switchMap, map, share } from 'rxjs/operators';
-import { merge, Subscription } from 'rxjs';
+import { Info, AutoSuggest, Filter } from '@app/models/api.models';
+import { startWith, switchMap, map, share, mergeMap } from 'rxjs/operators';
+import { merge, Subscription, forkJoin } from 'rxjs';
 import { ActionService } from '@app/services/action.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-build-overview',
@@ -19,7 +20,7 @@ export class BuildOverviewComponent implements OnInit {
   dataSource: Info[];
   isLoadingResults: boolean;
   buildCount: number;
-  filter: AutoSuggest;
+  filter: Filter;
 
   tableSubscription: Subscription;
   autoSuggestSub: Subscription;
@@ -32,30 +33,45 @@ export class BuildOverviewComponent implements OnInit {
   constructor(private apiService: ApiService, private actionService: ActionService) {}
 
   ngOnInit() {
-    this.apiService.getBuildCount().subscribe(x => (this.buildCount = x['total']));
-    console.log('INitialized build');
     this.autoSuggestSub = this.actionService.searchQuery.subscribe((query: AutoSuggest) => {
       console.log('Received in Build Overview = ', query);
       this.filter = query;
     });
+
+    this.actionService.contextEmitter.emit('build');
+  }
+
+  ngOnDestroy() {
+    this.autoSuggestSub.unsubscribe();
   }
 
   ngAfterViewInit() {
-    this.tableSubscription = this.initializeTableDate().subscribe(data => (this.dataSource = data));
+    this.tableSubscription = this.initializeTableDate().subscribe(finalInfo => {
+      this.dataSource = finalInfo['data'];
+      this.buildCount = finalInfo['count']['total'];
+
+      console.log('Result from query', this.dataSource, this.buildCount);
+    });
   }
 
   initializeTableDate() {
     return merge(this.sort.sortChange, this.paginator.page, this.actionService.searchQuery).pipe(
       startWith({}),
-      switchMap(() => {
-        this.isLoadingResults = true;
-        return this.apiService.getBuildDetails(this.sort.direction, this.paginator.pageIndex);
-      }),
-      map(data => {
-        this.isLoadingResults = false;
-        console.log(data);
-        return data;
-      })
+      switchMap(() =>
+        this.apiService.getBuildDetails(this.sort.direction, this.paginator.pageIndex, this.filter).pipe(
+          mergeMap(buildInfo => {
+            return this.apiService.getBuildCount(this.filter).pipe(
+              map((c: number) => {
+                const finalInfo = {
+                  data: buildInfo,
+                  count: c
+                };
+                return finalInfo;
+              })
+            );
+          })
+        )
+      )
     );
   }
 

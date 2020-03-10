@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BuildInfo, AutoSuggest, Info } from '@app/models/api.models';
+import { BuildInfo, AutoSuggest, Info, Filter, Release } from '@app/models/api.models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +18,40 @@ export class ApiService {
     })
   };
 
-  getBuildDetails(sort_order: string, page: number) {
+  getBuildDetails(sort_order: string, page: number, filter: Filter) {
     sort_order = sort_order ? sort_order : 'asc';
     console.log(sort_order);
-    return this.http.get<Info[]>(this.baseUrl + '/build?page=' + page);
+    if (filter) {
+      return this.http.get<Info[]>(
+        this.baseUrl + '/build?page=' + page + '&filter_key=' + filter.key + '&filter_value=' + filter.value
+      );
+    } else {
+      return this.http.get<Info[]>(this.baseUrl + '/build?page=' + page);
+    }
   }
 
-  getBuildCount() {
+  getBuildCount(filter: Filter) {
+    if (filter) {
+      return this.http.get(
+        this.baseUrl + '/build/summary' + '?filter_key=' + filter.key + '&filter_value=' + filter.value
+      );
+    }
     return this.http.get(this.baseUrl + '/build/summary');
   }
 
   autoCompleteSuggestion(text: string, context: string) {
     return this.http.get<AutoSuggest[]>(this.baseUrl + '/build/search?text=' + text + '&context=' + context);
+  }
+
+  createRelease(release: Release) {
+    return this.http.post<string>(this.baseUrl + '/release', release);
+  }
+
+  getRelease() {
+    return this.http.get<Release[]>(this.baseUrl + '/release');
+  }
+
+  getReleaseDetails(id: string) {
+    return this.http.get<Release>(this.baseUrl + '/release/' + id);
   }
 }

@@ -8,4 +8,5 @@ export class ActionService {
   constructor() {}
 
   public searchQuery = new EventEmitter<AutoSuggest>();
+  public contextEmitter = new EventEmitter<string>();
 }

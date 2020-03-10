@@ -6,7 +6,13 @@ import { Shell } from '@app/shell/shell.service';
 import { BuildOverviewComponent } from './build-overview.component';
 
 const routes: Routes = [
-  Shell.childRoutes([{ path: 'build', component: BuildOverviewComponent, data: { title: extract('Build Monitor') } }])
+  Shell.childRoutes([
+    {
+      path: 'build',
+      component: BuildOverviewComponent,
+      data: { title: extract('Build Monitor'), context: extract('build') }
+    }
+  ])
 ];
 
 @NgModule({

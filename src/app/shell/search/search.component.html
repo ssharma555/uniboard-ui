@@ -22,7 +22,7 @@
         <small> in </small>
         <span class="search-field">{{ result.key }}</span>
       </mat-option>
-      <mat-option *ngIf="searchResults">
+      <mat-option *ngIf="!searchResults || searchResults.length == 0">
         <small>No Result Found For Query: </small>
         <span class="search-key">{{ searchQuery }}</span>
       </mat-option>

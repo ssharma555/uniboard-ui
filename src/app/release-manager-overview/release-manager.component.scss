@@ -24,3 +24,41 @@
     margin-left: 0.5rem;
   }
 }
+
+.card-container {
+  display: flex;
+  margin: 2rem;
+}
+
+.release-card {
+  width: 25rem;
+  margin-right: 2rem;
+}
+
+.card-header {
+  // background-color: $color-blue;
+  // color: white;
+}
+
+.card-content {
+  display: flex;
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+
+.example-header-image {
+  width: 3rem;
+  border-radius: 50px;
+}
+
+.card-btn {
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 0rem 1rem;
+}
+
+.card-action {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem;
+}
