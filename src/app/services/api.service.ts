@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BuildInfo, AutoSuggest, Info, Filter, Release } from '@app/models/api.models';
+import { BuildInfo, AutoSuggest, Info, Filter, Release, KeyValueHolder } from '@app/models/api.models';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,9 @@ import { BuildInfo, AutoSuggest, Info, Filter, Release } from '@app/models/api.m
 export class ApiService {
   // baseUrl = 'http://172.23.254.171:2480';
   //baseUrl = 'https://searchink.atlassian.net/rest/api/2/project'
+  // baseUrl = 'http://172.23.254.171:5000/api/v1';
   baseUrl = 'http://localhost:5000/api/v1';
+
   constructor(private http: HttpClient) {}
 
   httpOptions = {
@@ -53,5 +55,41 @@ export class ApiService {
 
   getReleaseDetails(id: string) {
     return this.http.get<Release>(this.baseUrl + '/release/' + id);
+  }
+
+  deleteRelease(id: string) {
+    return this.http.delete(this.baseUrl + '/release/' + id.replace('#', ''));
+  }
+
+  getReleaseJira(id: string) {
+    return this.http.get(this.baseUrl + '/release/jira/' + id);
+  }
+
+  getUsersForReleaseJira(id: string) {
+    return this.http.get(this.baseUrl + '/release/jira/users/' + id);
+  }
+
+  getUserJiraTasks(id: string) {
+    return this.http.get<any[]>(this.baseUrl + '/users/jira/' + id);
+  }
+
+  getUserDetails(id: string) {
+    return this.http.get<any[]>(this.baseUrl + '/users/' + id);
+  }
+
+  getAllJiraProjects() {
+    return this.http.get<any[]>(this.baseUrl + '/jira/projects');
+  }
+
+  createFeedback(feedback: any) {
+    return this.http.post(this.baseUrl + '/users/feedback/', feedback);
+  }
+
+  updateUser(body: any, id: string) {
+    return this.http.put(this.baseUrl + '/users/' + id, body);
+  }
+
+  getBitbucketTasks(id: any) {
+    return this.http.get<any[]>(this.baseUrl + '/users/bitbucket/' + id);
   }
 }

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { UserService } from '@app/services/user.service';
+import { ApiService } from '@app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface Credentials {
   // Customize received credentials here
@@ -18,7 +21,7 @@ const credentialsKey = 'credentials';
 export class CredentialsService {
   private _credentials: Credentials | null = null;
 
-  constructor() {
+  constructor(private userService: UserService, private apiService: ApiService, private route: ActivatedRoute) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -30,7 +33,11 @@ export class CredentialsService {
    * @return True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    return !!this.credentials;
+    // return !!this.credentials;
+    if (this.userService.getUser()) {
+      return true;
+    }
+    return false;
   }
 
   /**

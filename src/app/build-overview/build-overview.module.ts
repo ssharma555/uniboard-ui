@@ -7,9 +7,19 @@ import { MaterialModule } from '@app/material.module';
 
 import { BuildOverviewRoutingModule } from './build-overview-routing.module';
 import { BuildOverviewComponent } from './build-overview.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, FlexLayoutModule, MaterialModule, BuildOverviewRoutingModule],
-  declarations: [BuildOverviewComponent]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FlexLayoutModule,
+    MaterialModule,
+    BuildOverviewRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  declarations: [BuildOverviewComponent, SearchComponent]
 })
 export class BuildOverviewModule {}

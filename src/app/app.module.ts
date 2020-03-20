@@ -22,6 +22,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { BuildOverviewModule } from './build-overview/build-overview.module';
 import { ApiService } from './services/api.service';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   imports: [
@@ -44,10 +47,12 @@ import { ApiService } from './services/api.service';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule, // must be imported as the last module as it contains the fallback route,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule,
+    NgSelectModule
   ],
   declarations: [AppComponent],
-  providers: [ApiService],
+  providers: [ApiService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

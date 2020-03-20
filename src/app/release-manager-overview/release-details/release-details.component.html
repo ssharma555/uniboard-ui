@@ -1,1 +1,105 @@
-<div class="release-container"></div>
+<div class="release-details-container">
+  <mat-card>
+    <h4>Release Milestones</h4>
+    <mat-progress-bar mode="determinate" value="{{ progress }}"></mat-progress-bar>
+    <div class="milestone">
+      <div class="phase-container" *ngFor="let phase of timeLine">
+        <div class="release-phase">
+          <div class="content">
+            <mat-list-item class="row">
+              <h4 mat-line>{{ phase.name }}</h4>
+            </mat-list-item>
+            <img
+              class="icon-success"
+              *ngIf="phase.status == 'completed'"
+              src="../../../assets/icons8-task-completed-96.png"
+            />
+            <img
+              class="icon-success"
+              *ngIf="phase.status == 'inprogress'"
+              src="../../../assets/icons8-in-progress-80.png"
+            />
+            <img
+              class="icon-success"
+              *ngIf="phase.status == 'waiting'"
+              src="../../../assets/icons8-waiting-room-100.png"
+            />
+
+            <mat-list-item class="row"> Due - {{ phase.date | date }} </mat-list-item>
+          </div>
+        </div>
+        <mat-divider *ngIf="phase.showArrow" [vertical]="true"></mat-divider>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="wrapper">
+    <mat-card class="doc-container">
+      <h4 mat-line>Release Documents</h4>
+      <mat-list>
+        <mat-list-item *ngFor="let doc of documents">
+          <mat-icon matListIcon>label_important</mat-icon>
+          <a mat-line target="_blank" href="{{ doc.url }}">View {{ doc.name }}</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+    <mat-card class="doc-container">
+      <h4 mat-line>Release Artifacts</h4>
+      <mat-list>
+        <mat-list-item *ngFor="let doc of artifacts">
+          <mat-icon matListIcon>label_important</mat-icon>
+          <a mat-line target="_blank" href="{{ doc.url }}">View {{ doc.name }}</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </div>
+
+  <div class="wrapper">
+    <mat-card class="jira-container">
+      <h4 mat-line>Jira Status</h4>
+
+      <app-loader class="inline-loader" [isLoading]="jiraSectionLoading"></app-loader>
+      <div>
+        <ngx-charts-number-card
+          [innerPadding]="15"
+          [scheme]="colorScheme"
+          [results]="jiraSource"
+          (select)="onSelect($event)"
+        >
+        </ngx-charts-number-card>
+      </div>
+    </mat-card>
+    <mat-card class="jira-container">
+      <h4 mat-line>Commits Done For The Release</h4>
+
+      <app-loader class="inline-loader" [isLoading]="jiraSectionLoading"></app-loader>
+      <div class="chart-container">
+        <ngx-charts-number-card [innerPadding]="15" [scheme]="colorScheme" [results]="commitSource">
+        </ngx-charts-number-card>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-card class="user-container">
+    <h4 mat-line>Contributors for the Release</h4>
+    <app-loader class="inline-loader" [isLoading]="userSectionLoading"></app-loader>
+
+    <div class="user-details">
+      <a
+        target="_blank"
+        href="https://searchink.atlassian.net/issues/?jql=labels in ({{
+          this.releaseDetails.releaseTag
+        }}) and (assignee = {{ user.acct_id }} or reporter = {{ user.acct_id }})"
+        class="user-card"
+        *ngFor="let user of users"
+      >
+        <div class="row">
+          <img class="avatars" src="{{ user.img }}" />
+        </div>
+        <div class="row name">
+          {{ user.name.split(' ')[0] | uppercase }}
+        </div>
+      </a>
+    </div>
+  </mat-card>
+</div>

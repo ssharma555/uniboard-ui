@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, I18nService, AuthenticationService, untilDestroyed } from '@app/core';
+import { Logger, I18nService, AuthenticationService, untilDestroyed, CredentialsService } from '@app/core';
+import { ApiService } from '@app/services/api.service';
+import { UserService } from '@app/services/user.service';
 
 const log = new Logger('Login');
 
@@ -24,12 +26,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private i18nService: I18nService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private credentialsService: CredentialsService,
+    private apiService: ApiService,
+    private userService: UserService
   ) {
     this.createForm();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createForm();
+  }
 
   ngOnDestroy() {}
 

@@ -38,7 +38,7 @@ export class BuildOverviewComponent implements OnInit {
       this.filter = query;
     });
 
-    this.actionService.contextEmitter.emit('build');
+    // this.actionService.contextEmitter.emit('build');
   }
 
   ngOnDestroy() {

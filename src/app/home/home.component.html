@@ -1,14 +1,81 @@
-<div class="container">
-  <mat-card>
-    <p>
-      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
-    </p>
-    <mat-card-content>
-      <mat-card-title translate>Hello world !</mat-card-title>
-      <mat-card-subtitle>
-        <app-loader [isLoading]="isLoading" size="1.5"></app-loader>
-        <q [hidden]="isLoading">{{ quote }}</q>
-      </mat-card-subtitle>
-    </mat-card-content>
+<div class="home-container">
+  <mat-card class="jira-chart-container">
+    <mat-card-header class="card-header">
+      <div mat-card-avatar>
+        <img class="icon" src="../../assets/icons8-jira-48.png" />
+      </div>
+      <mat-card-title>Open Jira Tasks - {{ count }}</mat-card-title>
+    </mat-card-header>
+
+    <div class="card-container">
+      <ngx-charts-number-card
+        [innerPadding]="15"
+        [scheme]="colorScheme"
+        [results]="jiraTasks"
+        (select)="onSelect($event)"
+      >
+      </ngx-charts-number-card>
+    </div>
+  </mat-card>
+  <mat-card class="jira-chart-container">
+    <mat-card-header class="card-header">
+      <div mat-card-avatar>
+        <img class="icon" src="../../assets/favicon.ico" />
+      </div>
+      <mat-card-title *ngIf="is_token_available">Open Bitbucket Tasks - 9</mat-card-title>
+      <mat-card-title *ngIf="!is_token_available">Configure Bitbucket</mat-card-title>
+    </mat-card-header>
+
+    <div *ngIf="!is_token_available" class="card-container">
+      <div class="title">
+        <span class="header">
+          <img class="profile-img" src="{{ profileImg }}" />
+          <h4>Hello {{ name }}.</h4>
+        </span>
+        <p class="msg">
+          Please configure your bitbucket account to work with Omniboard. This is a one time activity. Steps to follow :
+        </p>
+      </div>
+      <ul>
+        <li>
+          Go to
+          <a href="https://code.internal.omnius.com/plugins/servlet/access-tokens/manage" target="_blank"
+            >Your Account
+          </a>
+        </li>
+        <li>
+          Click on 'Create a token' button
+        </li>
+        <li>
+          Provide 'Token name' and click 'Create'
+        </li>
+        <li>
+          Copy the token and paste it below
+        </li>
+      </ul>
+
+      <div class="action">
+        <input matInput class="input" id="token" placeholder="Access Token" [type]="'text'" [(ngModel)]="token" />
+
+        <button [disabled]="token.length == 0" class="btn" mat-raised-button color="primary" (click)="updateUser()">
+          Configure Bitbucket
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="is_token_available" class="card-container">
+      <ngx-charts-pie-chart
+        [scheme]="colorScheme"
+        [results]="dummy"
+        [gradient]="true"
+        [legend]="true"
+        [legendPosition]="'right'"
+        [labels]="false"
+        [doughnut]="true"
+      >
+      </ngx-charts-pie-chart>
+    </div>
   </mat-card>
 </div>
+
+<!-- [cardColor]="cardColor" -->

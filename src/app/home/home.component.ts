@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 
-import { QuoteService } from './quote.service';
+import { UserService } from '@app/services/user.service';
+import { ApiService } from '@app/services/api.service';
+import { KeyValueHolder, User } from '@app/models/api.models';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-home',
@@ -9,22 +11,65 @@ import { QuoteService } from './quote.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  quote: string | undefined;
   isLoading = false;
+  userId: string;
+  jiraTasks: any[] = [];
+  isDoughnut = true;
+  count: number = 0;
+  jiraUrl =
+    'https://searchink.atlassian.net/issues/?jql=assignee = ASSIGNEE_PH and project in ("PROJECT_PH") and status not in (Done, Closed, Deployed, "Won\'t Do" , DUPLICATED) ORDER BY createdDate DESC';
 
-  constructor(private quoteService: QuoteService) {}
+  name = this.userService.getUser().name;
+  is_token_available = this.userService.getUser().token_present;
+  token = '';
+  profileImg = this.userService.getUser().profile_img;
+  // view: any[] = [500, 400];
+
+  colorScheme = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
+  dummy = [
+    {
+      name: 'OPEN',
+      value: 3
+    },
+    {
+      name: 'REVIEW',
+      value: 1
+    }
+  ];
+
+  // cardColor: string = '#232837';
+
+  constructor(private userService: UserService, private apiService: ApiService) {}
 
   ngOnInit() {
-    this.isLoading = true;
-    this.quoteService
-      .getRandomQuote({ category: 'dev' })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((quote: string) => {
-        this.quote = quote;
+    this.userId = this.userService.getUser().jira_id;
+    this.apiService.getUserJiraTasks(this.userId).subscribe((tasks: any[]) => {
+      this.jiraTasks = tasks;
+      for (var task of tasks) {
+        this.count += task['value'];
+      }
+    });
+  }
+
+  onSelect(data: any): void {
+    console.log('onSelect', data);
+    window.open(this.jiraUrl.replace('ASSIGNEE_PH', this.userId).replace('PROJECT_PH', data['name']));
+  }
+
+  updateUser() {
+    var body = {};
+    body['bitbucket_token'] = this.token;
+    var user: User = this.userService.getUser();
+    user.token_present = true;
+    this.userService.storeUser(user);
+
+    this.apiService.updateUser(body, this.userId).subscribe(response => {
+      this.apiService.getBitbucketTasks(this.userId).subscribe(response => {
+        this.dummy = response;
       });
+    });
   }
 }

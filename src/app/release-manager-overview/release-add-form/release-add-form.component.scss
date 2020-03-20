@@ -1,13 +1,33 @@
 @import "../release-manager.component.scss";
+@import "../../style.scss";
 
 .form-wrapper {
+  .basic-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .milestones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .artifacts {
+    width: 100%;
+  }
+
   form {
     // width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    flex: 0 50%;
+    // flex: 0 50%;
     margin-left: 2rem;
     margin-top: 1rem;
     justify-content: space-between;
@@ -16,7 +36,11 @@
       width: 100%;
     }
     .form-element {
-      flex: 0 50%;
+      width: 50%;
+
+      .date-form-field {
+        width: 85%;
+      }
     }
   }
 
@@ -29,4 +53,21 @@
   .url-field {
     width: 100%;
   }
+}
+
+.title {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.multi-select {
+  width: 100%;
+}
+
+.ng-select .ng-select-container:hover {
+  background-color: yellow;
+}
+
+::ng-deep .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: $color-blue;
 }

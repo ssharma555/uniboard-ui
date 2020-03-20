@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { startWith, map, debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { ActionService } from '@app/services/action.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  // @ViewChild("q", {static: false}) queryField: MatInput;
+  @Input('context') context: string;
   searchResults: AutoSuggest[] = [];
   usersForm: FormGroup;
   isLoading = false;
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   isInitialized: boolean = false;
   value: any = null;
   searchQuery = '';
-  context = '';
+
   contextSub: Subscription;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private actionService: ActionService) {}
@@ -53,11 +53,15 @@ export class SearchComponent implements OnInit {
         this.searchResults = suggestion;
       });
 
-    this.contextSub = this.actionService.contextEmitter.subscribe((x: string) => (this.context = x));
+    // this.contextSub = this.actionService.contextEmitter.subscribe((x: string) => {
+    //   console.log('Context ', x)
+    //   this.context = x
+
+    // });
   }
 
   ngOnDestroy() {
-    this.contextSub.unsubscribe();
+    // this.contextSub.unsubscribe();
   }
 
   ngAfterViewInit() {

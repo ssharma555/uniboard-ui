@@ -1,0 +1,107 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.release-details-container {
+  padding: 2rem;
+  display: grid;
+  grid-gap: 1rem;
+  background-color: #ebebeb;
+}
+
+.milestone {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.phase-container {
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
+}
+
+.release-phase {
+  // width: 10rem;
+  // height: 5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon-success {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    // fill: #44af69;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.arrow-container {
+  width: 7rem;
+  padding-top: 2.5rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.doc-container {
+  //margin-left: 6rem;
+}
+
+.jira-container {
+  // display: flex;
+  // width: 50vw;
+}
+
+.chart-container {
+  max-height: 50rem;
+}
+
+.jira-card {
+  width: 10rem;
+  margin: 2rem;
+  border-radius: 1rem;
+}
+
+.avatars {
+  width: 4rem;
+  border-radius: 100px;
+}
+
+.user-container {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-details {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-card {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+
+  .name {
+    color: grey;
+    margin-top: 0.5rem;
+  }
+}

@@ -5,14 +5,14 @@
   flex: 1;
 }
 
-.sidenav-container {
-  height: 100vh;
-}
+// .sidenav-container {
+//   height: 100vh;
+// }
 
 .mat-sidenav {
   min-width: 4rem;
   max-width: 28%;
-  height: 100vh;
+  // height: 100vh;
   background-color: $color-blue;
 }
 
@@ -69,13 +69,18 @@
 }
 
 .search-bar {
-  position: fixed;
+  position: absolute;
   left: 6rem;
 }
 
 .profile-img {
   width: 3rem;
   border-radius: 100px;
-  position: fixed;
+  position: absolute;
   right: 40px;
+  cursor: pointer;
+}
+
+.icon-container {
+  padding-bottom: 1rem;
 }

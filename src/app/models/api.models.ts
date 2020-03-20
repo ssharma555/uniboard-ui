@@ -53,4 +53,20 @@ export interface Release {
   releaseDate: Date;
   releaseNote: string;
   requirementDocument: string;
+  phase: string;
+  released: boolean;
+  associatedProjects: string[];
+}
+
+export interface KeyValueHolder {
+  key: string;
+  value: string;
+}
+
+export interface User {
+  name: string;
+  profile_img: string;
+  jira_id: string;
+  token_present: boolean;
+  created_date: string;
 }

@@ -13,11 +13,25 @@
       </mat-toolbar>
       <nav>
         <mat-list>
+          <div
+            matTooltip="Monitor Micro Service Level Build Status"
+            matTooltipShowDelay="300"
+            [matTooltipPosition]="position.value"
+            class="icon-container"
+            routerLink="/home"
+          >
+            <svg class="icon">
+              <use xlink:href="../../assets/symbols.svg#icon-home2"></use>
+            </svg>
+          </div>
+        </mat-list>
+        <mat-list>
           <!-- <mat-divider></mat-divider> -->
           <!-- <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="isMobile && sidenav.close()">
             <span translate>Home</span>
           </a> -->
           <!-- <mat-divider></mat-divider> -->
+
           <div
             matTooltip="Monitor Micro Service Level Build Status"
             matTooltipShowDelay="300"
@@ -45,6 +59,20 @@
             </svg>
           </div>
         </mat-list>
+
+        <mat-list>
+          <div
+            class="icon-container"
+            matTooltip="Provide Your Valuable Feedback"
+            matTooltipShowDelay="300"
+            [matTooltipPosition]="position.value"
+            (click)="takeFeedback()"
+          >
+            <svg class="icon">
+              <use xlink:href="../../assets/symbols.svg#icon-bullhorn"></use>
+            </svg>
+          </div>
+        </mat-list>
       </nav>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -54,11 +82,8 @@
         </button>
         <div class="top-navbar-elements">
           <span class="page-title">{{ title }}</span>
-          <app-search class="search-bar"></app-search>
-          <img
-            class="profile-img"
-            src="https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:343329ee-44a6-4f58-a6f9-939814225258/6220d4fd-3888-4fbc-85a1-77b7813b81fd/128"
-          />
+          <!-- <app-search class="search-bar"></app-search> -->
+          <img routerLink="/home" class="profile-img" src="{{ profileImg }}" />
         </div>
       </mat-toolbar>
       <router-outlet></router-outlet>

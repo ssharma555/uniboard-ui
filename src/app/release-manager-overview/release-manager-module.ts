@@ -7,8 +7,11 @@ import { ReleaseManagementRoutingModule } from './release-manager-routing-module
 import { ReleaseDetailsComponent } from './release-details/release-details.component';
 import { ReleaseAddFormComponent } from './release-add-form/release-add-form.component';
 import { MaterialModule } from '@app/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from '@app/shared';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -18,7 +21,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FlexLayoutModule,
     MaterialModule,
     ReleaseManagementRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule,
+    NgxChartsModule,
+    FormsModule,
+    NgSelectModule
   ],
   declarations: [ReleaseManagerComponent, ReleaseDetailsComponent, ReleaseAddFormComponent],
   entryComponents: [ReleaseAddFormComponent]

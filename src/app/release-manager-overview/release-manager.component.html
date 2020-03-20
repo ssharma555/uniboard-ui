@@ -1,87 +1,143 @@
 <div class="release-container">
   <div class="btn-container">
-    <button mat-raised-button color="primary" class="release-btn" (click)="addReleaseForm()">
+    <button mat-raised-button color="primary" class="release-btn" (click)="addRelease()">
       <svg class="icon-add">
         <use xlink:href="../../assets/symbols.svg#icon-plus"></use>
       </svg>
       <span class="release-btn-text">New Release</span>
     </button>
   </div>
-  <div class="card-container">
-    <mat-card *ngFor="let release of releaseList" class="release-card">
-      <mat-card-header class="card-header">
-        <!-- <div mat-card-avatar >
-          <img class="example-header-image" src="https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5aa649d38485da288388b193/120c299d-899d-449e-bd01-6041790f5f9c/128?size=48&s=48">
-        </div> -->
-        <mat-card-title>{{ release.releaseName }}</mat-card-title>
-        <mat-card-subtitle>{{ release.releaseTag }}</mat-card-subtitle>
-      </mat-card-header>
-      <h4 mat-subheader>Release Mile Stones</h4>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line>Requirement Freeze :</h4>
-          <p mat-line>{{ release.requirementFreeze | date }}</p>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line>Feature Freeze</h4>
-          <p mat-line>{{ release.featureFreeze | date }}</p>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line>Code Freeze</h4>
-          <p mat-line>{{ release.codeFreeze | date }}</p>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line>Product Release</h4>
-          <p mat-line>{{ release.releaseDate | date }}</p>
-        </div>
-      </mat-list-item>
 
-      <!-- <h4 mat-subheader>  Release Documents </h4>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line> Requirement Document </h4>
-          <a target="_blank" href="{{release.requirementDocument}}" > View</a>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="card-content">
-          <h4 mat-line> Release Notes </h4>
-          <a target="_blank" href="{{release.releaseNote}}" > View</a>
-        </div>
-        
-      </mat-list-item> -->
+  <app-loader *ngIf="isLoading" class="inline-loader" [isLoading]="isLoading"></app-loader>
+  <div class="release-content" *ngIf="!isLoading">
+    <div class="ongoing_release">
+      <h3 mat-line class="section-header">Ongoing Releases</h3>
+      <h4 mat-line *ngIf="ongoingRelease.length == 0" class="empty-release">No upcoming planned release</h4>
+      <div class="card-container">
+        <mat-card *ngFor="let release of ongoingRelease" class="release-card">
+          <mat-card-header class="card-header">
+            <mat-card-title>{{ release.releaseName }}</mat-card-title>
+            <mat-card-subtitle>{{ release.releaseTag }}</mat-card-subtitle>
 
-      <mat-card-actions class="card-action">
-        <button
-          routerLink="/release/{{ release.id.replace('#', '') }}"
-          mat-raised-button
-          color="primary"
-          class="card-btn"
-        >
-          VIEW DETAILS
-        </button>
-      </mat-card-actions>
-    </mat-card>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+              class="vert_option_btn"
+            >
+              <mat-icon class="vert-icon">more_vert</mat-icon>
+            </button>
+            <div class="menu_option">
+              <mat-menu #menu="matMenu" class="menu-item">
+                <button mat-menu-item (click)="editRelease(release)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Modify</span>
+                </button>
+
+                <button mat-menu-item (click)="cloneRelease(release)">
+                  <mat-icon>replay</mat-icon>
+                  <span>Clone</span>
+                </button>
+
+                <button mat-menu-item (click)="deleteRelease(release)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+
+          <mat-card-content
+            class="card-details"
+            (click)="goToReleaseDetails(release)"
+            matTooltip="Click to view Release Details"
+            matTooltipPosition="below"
+            matTooltipShowDelay="300"
+          >
+            <mat-list-item>
+              <div class="card-content">
+                <span>Phase </span>
+                <span class="release-phase-text">{{ release.phase | uppercase }}</span>
+              </div>
+            </mat-list-item>
+            <mat-list-item>
+              <div class="card-content">
+                <span>Release Date</span>
+                <mat-chip-list>
+                  <div class="release-date">{{ release.releaseDate | date }}</div>
+                </mat-chip-list>
+              </div>
+            </mat-list-item>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="completed_release">
+      <div class="ongoing_release">
+        <h3 mat-line class="section-header">Completed Releases</h3>
+        <h4 mat-line *ngIf="ongoingRelease.length == 0" class="empty-release">No upcoming planned release</h4>
+        <div class="card-container">
+          <mat-card *ngFor="let release of completedRelease" class="release-card">
+            <mat-card-header class="card-header">
+              <mat-card-title>{{ release.releaseName }}</mat-card-title>
+              <mat-card-subtitle>{{ release.releaseTag }}</mat-card-subtitle>
+
+              <!-- <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+                class="vert_option_btn"
+              >
+                <mat-icon class="vert-icon">more_vert</mat-icon>
+              </button>
+              <div class="menu_option">
+                <mat-menu #menu="matMenu" class="menu-item">
+                  <button mat-menu-item (click)="editRelease(release)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Modify</span>
+                  </button>
+
+                  <button mat-menu-item (click)="cloneRelease(release)">
+                    <mat-icon>replay</mat-icon>
+                    <span>Clone</span>
+                  </button>
+
+                  <button mat-menu-item (click)="deleteRelease(release)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div> -->
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <mat-card-content
+              class="card-details"
+              (click)="goToReleaseDetails(release)"
+              matTooltip="Click to view Release Details"
+              matTooltipPosition="below"
+              matTooltipShowDelay="300"
+            >
+              <mat-list-item>
+                <div class="card-content">
+                  <span>Phase </span>
+                  <span class="release-phase-text">{{ release.phase | uppercase }}</span>
+                </div>
+              </mat-list-item>
+              <mat-list-item>
+                <div class="card-content">
+                  <span>Release Date</span>
+                  <mat-chip-list>
+                    <div class="release-date">{{ release.releaseDate | date }}</div>
+                  </mat-chip-list>
+                </div>
+              </mat-list-item>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- <mat-vertical-stepper #stepper>
-  <mat-step  label="Requirement Freeze" completed="true">
-    {{release.requirementFreeze}}
-  </mat-step>
-  <mat-step  label="Requirement Freeze" completed="true">
-    {{release.requirementFreeze}}
-  </mat-step>
-  <mat-step  label="Requirement Freeze" completed="true">
-    {{release.requirementFreeze}}
-  </mat-step>
-  <mat-step  label="Requirement Freeze" completed="true">
-    {{release.requirementFreeze}}
-  </mat-step>
-</mat-vertical-stepper>  -->

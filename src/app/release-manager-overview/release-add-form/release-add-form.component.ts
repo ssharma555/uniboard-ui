@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Release } from '@app/models/api.models';
 import { ApiService } from '@app/services/api.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from '@app/services/notification.service';
 
 @Component({
   selector: 'app-release-add-form',
@@ -19,26 +21,52 @@ export class ReleaseAddFormComponent implements OnInit {
   releaseDate: string;
   errorMessage: string;
   successMessage: string;
+  checked = false;
+  projects: any[] = [];
+  selectedProjects: any = [];
+
   stringPattern = /^\S*$/;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private apiService: ApiService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    private apiService: ApiService,
+    public dialogRef: MatDialogRef<ReleaseAddFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Release,
+    private nitification: NotificationService
+  ) {}
 
   toolTipDelay = 300;
   ngOnInit() {
+    this.apiService.getAllJiraProjects().subscribe((result: any[]) => {
+      this.projects = result;
+      console.log(this.projects);
+    });
     this.createForm();
   }
 
+  getValue(data: any, key: string) {
+    if (data) {
+      return data[key];
+    }
+
+    return '';
+  }
+
   createForm() {
+    console.log('Pre populated data = ', this.getValue(this.data, 'id'));
     this.newReleaseForm = this.formBuilder.group({
-      releaseName: new FormControl('', [Validators.required, Validators.pattern(this.stringPattern)]),
-      releaseTag: new FormControl('', [Validators.required, Validators.pattern(this.stringPattern)]),
-      requirementFreeze: new FormControl('', Validators.required),
-      requirementDocument: new FormControl('', [Validators.required, Validators.pattern(this.stringPattern)]),
-      featureFreeze: new FormControl('', Validators.required),
-      codeFreeze: new FormControl('', Validators.required),
+      releaseName: new FormControl(this.getValue(this.data, 'releaseName'), []),
+      releaseTag: new FormControl(this.getValue(this.data, 'releaseTag'), []),
+      releaseDescription: new FormControl(),
+      associatedProjects: new FormControl(),
+      requirementFreeze: new FormControl(this.getValue(this.data, 'requirementFreeze'), Validators.required),
+      requirementDocument: new FormControl(this.getValue(this.data, 'requirementDocument'), []),
+      featureFreeze: new FormControl(this.getValue(this.data, 'featureFreeze'), Validators.required),
+      codeFreeze: new FormControl(this.getValue(this.data, 'codeFreeze'), Validators.required),
       uatCompletion: new FormControl(''),
-      releaseDate: new FormControl('', Validators.required),
-      releaseNote: new FormControl('')
+      releaseDate: new FormControl(this.getValue(this.data, 'releaseDate'), Validators.required),
+      releaseNote: new FormControl(this.getValue(this.data, 'releaseNote'))
     });
   }
 
@@ -47,43 +75,24 @@ export class ReleaseAddFormComponent implements OnInit {
   }
 
   onSubmitReleaseForm() {
-    // if (this.newReleaseForm.valid) {
-    //   this.errorMessage = '';
-    //   this.successMessage = 'Submitted successfully';
-    // } else {
-    //   this.errorMessage = 'Please Enter Correct Data In All The Fields';
-    // }
-    // const allDates = [];
-    // allDates.push(
-    //   (this.requirementFreeze = this.datePipe.transform(this.newReleaseForm.value.requirementFreeze, 'dd-MM-yyyy'))
-    // );
-    // allDates.push(
-    //   (this.featureFreeze = this.datePipe.transform(this.newReleaseForm.value.featureFreeze, 'dd-MM-yyyy'))
-    // );
-    // allDates.push((this.codeFreeze = this.datePipe.transform(this.newReleaseForm.value.codeFreeze, 'dd-MM-yyyy')));
-    // this.uatCompletion = this.datePipe.transform(this.newReleaseForm.value.this.newReleaseForm.value.newReleaseForm.valueion, 'dd-MM-yyyy');
-    // if (this.uatCompletion) {
-    //   allDates.push(this.uatCompletion);
-    // }
-    // allDates.push((this.releaseDate = this.datePipe.transform(this.newReleaseForm.value.releaseDate, 'dd-MM-yyyy')));
-    // // Validation for all the valid dates
-    // const nonValidDateFormat = allDates.some(el => {
-    //   return el === null;
-    // });
-    // if (nonValidDateFormat) {
-    //   this.errorMessage = 'Please Enter Valid Date Format';
-    // } else {
+    if (this.newReleaseForm.valid) {
+      this.errorMessage = '';
+      // this.successMessage = 'Submitted successfully';
+    } else {
+      this.errorMessage = 'Please Enter Correct Data In All The Fields';
+    }
 
-    //   for (let i = 0; i < allDates.length; i++) {
-    //     if (allDates[i] > allDates[i + 1]) {
-    //       this.errorMessage = 'Former Date Cannot Be Greater Than Future Date';
-    //     }
-    //   }
-    // }
     var release: Release = this.newReleaseForm.value;
-    console.log(release);
-    this.apiService.createRelease(release).subscribe(x => {
-      console.log('Created release ', x);
+    release['id'] = this.data.id;
+    release.associatedProjects = this.selectedProjects;
+
+    console.log(release, this.selectedProjects);
+    this.successMessage = 'Creating the release';
+    this.apiService.createRelease(release).subscribe((id: string) => {
+      release.id = id;
+
+      this.nitification.showNotification('Successfully Created the Release');
+      this.dialogRef.close(release);
     });
   }
 }

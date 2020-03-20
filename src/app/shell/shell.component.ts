@@ -5,7 +5,10 @@ import { MediaObserver } from '@angular/flex-layout';
 
 import { AuthenticationService, CredentialsService, I18nService } from '@app/core';
 import { TooltipPosition } from '@angular/material/tooltip';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder } from '@angular/forms';
+import { UserService } from '@app/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @Component({
   selector: 'app-shell',
@@ -15,6 +18,7 @@ import { FormControl } from '@angular/forms';
 export class ShellComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
   position = new FormControl(this.positionOptions[3]);
+  profileImg: string;
 
   constructor(
     private router: Router,
@@ -22,10 +26,15 @@ export class ShellComponent implements OnInit {
     private media: MediaObserver,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private i18nService: I18nService
+    private i18nService: I18nService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.profileImg = this.userService.getUser()['profile_img'];
+  }
 
   setLanguage(language: string) {
     this.i18nService.language = language;
@@ -50,5 +59,12 @@ export class ShellComponent implements OnInit {
 
   get title(): string {
     return this.titleService.getTitle();
+  }
+
+  takeFeedback() {
+    const dialogRef = this.dialog.open(FeedbackComponent, {
+      width: '600px',
+      height: '400px'
+    });
   }
 }
