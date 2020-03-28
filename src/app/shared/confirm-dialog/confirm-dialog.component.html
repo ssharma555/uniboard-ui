@@ -1,0 +1,21 @@
+<!-- <h1 mat-dialog-title>
+    {{title}}
+  </h1> -->
+
+<div class="personal-info">
+  <img class="profile-img" src="{{ profileImg }}" />
+  <span>Hello </span>
+  <span class="bold"> {{ name }} !</span>
+</div>
+
+<div mat-dialog-content class="confirm-dialog">
+  <div class="message">
+    <span> {{ message }} </span>
+    <span class="bold"> {{ secMessage }} ?</span>
+  </div>
+</div>
+
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="onDismiss()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">Confirm</button>
+</div>

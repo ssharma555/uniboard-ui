@@ -4,7 +4,7 @@
       <div mat-card-avatar>
         <img class="icon" src="../../assets/icons8-jira-48.png" />
       </div>
-      <mat-card-title>Open Jira Tasks - {{ count }}</mat-card-title>
+      <mat-card-title>Jira Tasks - {{ count }}</mat-card-title>
     </mat-card-header>
 
     <div class="card-container">
@@ -17,12 +17,13 @@
       </ngx-charts-number-card>
     </div>
   </mat-card>
+
   <mat-card class="jira-chart-container">
     <mat-card-header class="card-header">
       <div mat-card-avatar>
         <img class="icon" src="../../assets/favicon.ico" />
       </div>
-      <mat-card-title *ngIf="is_token_available">Open Bitbucket Tasks - 9</mat-card-title>
+      <mat-card-title *ngIf="is_token_available"> Bitbucket Tasks - {{ bitCount }}</mat-card-title>
       <mat-card-title *ngIf="!is_token_available">Configure Bitbucket</mat-card-title>
     </mat-card-header>
 
@@ -36,7 +37,7 @@
           Please configure your bitbucket account to work with Omniboard. This is a one time activity. Steps to follow :
         </p>
       </div>
-      <ul>
+      <ul class="instructions">
         <li>
           Go to
           <a href="https://code.internal.omnius.com/plugins/servlet/access-tokens/manage" target="_blank"
@@ -54,26 +55,32 @@
         </li>
       </ul>
 
-      <div class="action">
-        <input matInput class="input" id="token" placeholder="Access Token" [type]="'text'" [(ngModel)]="token" />
+      <div class="action_container">
+        <div class="action">
+          <input matInput class="input" id="token" placeholder="Access Token" [type]="'text'" [(ngModel)]="token" />
 
-        <button [disabled]="token.length == 0" class="btn" mat-raised-button color="primary" (click)="updateUser()">
-          Configure Bitbucket
-        </button>
+          <button [disabled]="token.length == 0" class="btn" mat-raised-button color="primary" (click)="updateUser()">
+            Configure Bitbucket
+          </button>
+        </div>
+        <div class="error_msg">{{ errMsg }}</div>
       </div>
     </div>
 
     <div *ngIf="is_token_available" class="card-container">
-      <ngx-charts-pie-chart
-        [scheme]="colorScheme"
-        [results]="dummy"
-        [gradient]="true"
-        [legend]="true"
-        [legendPosition]="'right'"
-        [labels]="false"
-        [doughnut]="true"
-      >
-      </ngx-charts-pie-chart>
+      <app-loader *ngIf="bitLoading" class="inline-loader" [isLoading]="bitLoading"></app-loader>
+      <div *ngIf="!bitLoading && bitTasks.length > 0">
+        <ngx-charts-pie-chart
+          [scheme]="colorScheme"
+          [results]="bitTasks"
+          [gradient]="true"
+          [legend]="true"
+          [legendPosition]="'right'"
+          [labels]="false"
+          [doughnut]="true"
+        >
+        </ngx-charts-pie-chart>
+      </div>
     </div>
   </mat-card>
 </div>

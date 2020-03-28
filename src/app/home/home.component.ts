@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   jiraTasks: any[] = [];
   isDoughnut = true;
   count: number = 0;
+  bitCount: number = 0;
+  errMsg = '';
   jiraUrl =
     'https://searchink.atlassian.net/issues/?jql=assignee = ASSIGNEE_PH and project in ("PROJECT_PH") and status not in (Done, Closed, Deployed, "Won\'t Do" , DUPLICATED) ORDER BY createdDate DESC';
 
@@ -23,22 +25,15 @@ export class HomeComponent implements OnInit {
   is_token_available = this.userService.getUser().token_present;
   token = '';
   profileImg = this.userService.getUser().profile_img;
+  bitLoading = false;
+
   // view: any[] = [500, 400];
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
-  dummy = [
-    {
-      name: 'OPEN',
-      value: 3
-    },
-    {
-      name: 'REVIEW',
-      value: 1
-    }
-  ];
+  bitTasks: any[];
 
   // cardColor: string = '#232837';
 
@@ -52,6 +47,16 @@ export class HomeComponent implements OnInit {
         this.count += task['value'];
       }
     });
+
+    this.bitLoading = true;
+    this.apiService.getBitbucketTasks(this.userId).subscribe(response => {
+      this.bitLoading = false;
+      this.bitTasks = response;
+      this.bitTasks.forEach(x => {
+        this.bitCount += x['value'];
+      });
+      console.log('dummy = ', this.bitTasks);
+    });
   }
 
   onSelect(data: any): void {
@@ -62,14 +67,25 @@ export class HomeComponent implements OnInit {
   updateUser() {
     var body = {};
     body['bitbucket_token'] = this.token;
-    var user: User = this.userService.getUser();
-    user.token_present = true;
-    this.userService.storeUser(user);
 
-    this.apiService.updateUser(body, this.userId).subscribe(response => {
-      this.apiService.getBitbucketTasks(this.userId).subscribe(response => {
-        this.dummy = response;
-      });
-    });
+    this.apiService.updateUser(body, this.userId).subscribe(
+      response => {
+        this.is_token_available = true;
+        this.bitLoading = true;
+        this.apiService.getBitbucketTasks(this.userId).subscribe(response => {
+          this.bitTasks = response;
+          this.is_token_available = true;
+          var user: User = this.userService.getUser();
+          user.token_present = true;
+          this.userService.storeUser(user);
+          this.bitLoading = false;
+        });
+      },
+      () => {
+        this.is_token_available = false;
+        this.errMsg = 'Invalid Token';
+        console.log('Error');
+      }
+    );
   }
 }

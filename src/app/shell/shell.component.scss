@@ -59,8 +59,8 @@
 
 .page-title {
   color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
 .top-navbar-elements {
@@ -83,4 +83,12 @@
 
 .icon-container {
   padding-bottom: 1rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  color: white;
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
 }

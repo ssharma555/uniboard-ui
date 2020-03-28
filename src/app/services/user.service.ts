@@ -12,6 +12,7 @@ export class UserService {
   }
 
   storeUser(user: any) {
+    user['token_present'] = user['token_present'] > 0;
     localStorage.setItem('user', JSON.stringify(user));
   }
 }

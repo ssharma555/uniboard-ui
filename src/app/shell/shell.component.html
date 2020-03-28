@@ -13,18 +13,14 @@
       </mat-toolbar>
       <nav>
         <mat-list>
-          <div
-            matTooltip="Monitor Micro Service Level Build Status"
-            matTooltipShowDelay="300"
-            [matTooltipPosition]="position.value"
-            class="icon-container"
-            routerLink="/home"
-          >
+          <div matTooltipShowDelay="300" class="icon-container" routerLink="/home">
             <svg class="icon">
               <use xlink:href="../../assets/symbols.svg#icon-home2"></use>
             </svg>
+            <span class="title">HOME</span>
           </div>
         </mat-list>
+        <mat-divider></mat-divider>
         <mat-list>
           <!-- <mat-divider></mat-divider> -->
           <!-- <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="isMobile && sidenav.close()">
@@ -32,56 +28,52 @@
           </a> -->
           <!-- <mat-divider></mat-divider> -->
 
-          <div
-            matTooltip="Monitor Micro Service Level Build Status"
-            matTooltipShowDelay="300"
-            [matTooltipPosition]="position.value"
-            class="icon-container"
-            routerLink="/build"
-          >
+          <div matTooltipShowDelay="300" class="icon-container" routerLink="/build">
             <svg class="icon">
               <use xlink:href="../../assets/symbols.svg#icon-hammer"></use>
             </svg>
+            <span class="title">BUILD</span>
           </div>
           <!-- 
           <mat-divider></mat-divider> -->
         </mat-list>
+        <mat-divider></mat-divider>
         <mat-list>
-          <div
-            class="icon-container"
-            matTooltip="Monitor and Manage Product Releases"
-            matTooltipShowDelay="300"
-            [matTooltipPosition]="position.value"
-            routerLink="/release"
-          >
+          <div class="icon-container" matTooltipShowDelay="300" routerLink="/release">
             <svg class="icon">
               <use xlink:href="../../assets/symbols.svg#icon-rocket1"></use>
             </svg>
+            <span class="title">RELEASE</span>
           </div>
         </mat-list>
-
+        <mat-divider></mat-divider>
         <mat-list>
-          <div
-            class="icon-container"
-            matTooltip="Provide Your Valuable Feedback"
-            matTooltipShowDelay="300"
-            [matTooltipPosition]="position.value"
-            (click)="takeFeedback()"
-          >
+          <div class="icon-container" matTooltipShowDelay="300" routerLink="/customer">
+            <svg class="icon">
+              <use xlink:href="../../assets/symbols.svg#icon-group"></use>
+            </svg>
+            <span class="title">CUSTOMERS</span>
+          </div>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <div class="icon-container" matTooltipShowDelay="300" (click)="takeFeedback()">
             <svg class="icon">
               <use xlink:href="../../assets/symbols.svg#icon-bullhorn"></use>
             </svg>
+            <span class="title">FEEDBACK</span>
           </div>
         </mat-list>
       </nav>
     </mat-sidenav>
+
     <mat-sidenav-content>
       <mat-toolbar color="primary" class="mat-elevation-z6">
         <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
           <mat-icon>menu</mat-icon>
         </button>
         <div class="top-navbar-elements">
-          <span class="page-title">{{ title }}</span>
+          <span class="page-title">{{ title | uppercase }}</span>
           <!-- <app-search class="search-bar"></app-search> -->
           <img routerLink="/home" class="profile-img" src="{{ profileImg }}" />
         </div>

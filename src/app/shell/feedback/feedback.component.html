@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-  <h3 mat-line class="title">We Take Your Feedback Seriously. So Please Do Provide One !</h3>
+  <h4 mat-line class="title">We Take Your Feedback Seriously. So Please Do Provide One !</h4>
   <form [formGroup]="feedbackForm">
     <div class="form-element">
       <mat-form-field>
@@ -14,13 +14,15 @@
     <div class="action-container">
       <div class="url" *ngIf="optionValue == 'bug'">
         <a href="{{ jiraUrl.replace('TYPE', bugId).replace('USER', userId) }}" target="_blank">
-          Please Create a Ticket in Jira</a
-        >
+          <span>Please Create a Ticket in Jira</span>
+          <img class="gif" src="../../../assets/giphy.gif" />
+        </a>
       </div>
       <div class="url" *ngIf="optionValue == 'feature'">
         <a href="{{ jiraUrl.replace('TYPE', newFeatureId).replace('USER', userId) }}" target="_blank">
-          Please Create a Ticket in Jira</a
-        >
+          <span>Please Create a Ticket in Jira</span>
+          <img class="gif" src="../../../assets/giphy.gif" />
+        </a>
       </div>
       <div *ngIf="optionValue == 'appreciation'" class="feedback-text">
         <mat-form-field appearance="legacy" class="feedback-form">

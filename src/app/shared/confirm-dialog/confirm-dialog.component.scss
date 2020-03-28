@@ -1,0 +1,29 @@
+@import "../../style.scss";
+
+.confirm-dialog {
+  width: 25rem;
+  max-height: 15rem;
+  padding: 2rem 0;
+}
+
+.personal-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.bold {
+  font-weight: 700;
+  padding-left: 0.4rem;
+}
+
+.message {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}

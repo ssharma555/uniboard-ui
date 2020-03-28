@@ -56,8 +56,8 @@ export class ReleaseAddFormComponent implements OnInit {
   createForm() {
     console.log('Pre populated data = ', this.getValue(this.data, 'id'));
     this.newReleaseForm = this.formBuilder.group({
-      releaseName: new FormControl(this.getValue(this.data, 'releaseName'), []),
-      releaseTag: new FormControl(this.getValue(this.data, 'releaseTag'), []),
+      releaseName: [this.getValue(this.data, 'releaseName'), Validators.required],
+      releaseTag: new FormControl(this.getValue(this.data, 'releaseTag'), Validators.required),
       releaseDescription: new FormControl(),
       associatedProjects: new FormControl(),
       requirementFreeze: new FormControl(this.getValue(this.data, 'requirementFreeze'), Validators.required),
@@ -88,11 +88,11 @@ export class ReleaseAddFormComponent implements OnInit {
 
     console.log(release, this.selectedProjects);
     this.successMessage = 'Creating the release';
-    this.apiService.createRelease(release).subscribe((id: string) => {
-      release.id = id;
+    // this.apiService.createRelease(release).subscribe((id: string) => {
+    //   release.id = id;
 
-      this.nitification.showNotification('Successfully Created the Release');
-      this.dialogRef.close(release);
-    });
+    //   this.nitification.showNotification('Successfully Created the Release');
+    //   this.dialogRef.close(release);
+    // });
   }
 }

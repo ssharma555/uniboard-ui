@@ -24,8 +24,11 @@ export interface Info {
   type: string;
   commit_id: string;
   commit_msg: string;
-  status: string;
+  build_status: string;
+  tag_name: string;
   test_status: TestSummary;
+  project_name: string;
+  repo_name: string;
 }
 
 export interface BuildInfo {

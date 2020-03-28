@@ -17,12 +17,15 @@ $color-grey-dark: #777;
 $color-blue: #2196f3;
 $color-white: white;
 
+$color-background: #e4e5e6;
+
 $default-font-size: 1.6rem;
 
 //$color-background: rgb(245, 94, 135, 0.5);
 
 // FONT VARIABLES
-$font-primary: "Roboto", sans-serif;
+// $font-primary: "Roboto", sans-serif;
+$font-primary: "OpenSansRegular , sans-serif";
 $font-display: "Josefin Sans", sans-serif;
 
 // RESPONSIVE BREAKPOINTS
@@ -112,22 +115,22 @@ ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
   }
 }
 
-.btn {
-  background-color: $color-primary;
-  color: #fff;
-  border: none;
-  border-radius: 0;
-  font-family: $font-display;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  padding: 1.8rem 3rem;
-  cursor: pointer;
-  transition: all 0.2s;
+// .btn {
+//   background-color: $color-primary;
+//   color: #fff;
+//   border: none;
+//   border-radius: 0;
+//   font-family: $font-display;
+//   font-size: 1.5rem;
+//   text-transform: uppercase;
+//   padding: 1.8rem 3rem;
+//   cursor: pointer;
+//   transition: all 0.2s;
 
-  &:hover {
-    background-color: $color-primary-dark;
-  }
-}
+//   &:hover {
+//     background-color: $color-primary-dark;
+//   }
+// }
 
 .mb-sm {
   margin-bottom: 2rem;
@@ -171,7 +174,6 @@ ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
 
 .icon {
   display: flex;
-  align-self: flex-end;
   width: 2rem;
   height: 2rem;
   fill: $color-white;
@@ -181,4 +183,10 @@ ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
     // transform: translateX(-0.5rem) translateY(-0.5rem) scale(1.2);
     // transform: scale(1.5);
   }
+}
+
+.profile-img {
+  width: 3rem;
+  border-radius: 100px;
+  margin-right: 1rem;
 }

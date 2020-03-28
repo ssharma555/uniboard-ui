@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-release-manager',
@@ -120,5 +121,24 @@ export class ReleaseManagerComponent implements OnInit {
 
   goToReleaseDetails(release: Release) {
     this.router.navigateByUrl('/release/' + release.id.replace('#', ''));
+  }
+
+  confirmDialog(release: Release): void {
+    const message = 'Are you sure you want Delete ';
+    const secMessage = release.releaseName;
+
+    const dialogData = new ConfirmDialogModel('Delete Release - ' + secMessage, message, secMessage);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '800px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      var result = dialogResult;
+      if (result) {
+        this.deleteRelease(release);
+      }
+    });
   }
 }

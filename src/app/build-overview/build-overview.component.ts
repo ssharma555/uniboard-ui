@@ -26,10 +26,20 @@ export class BuildOverviewComponent implements OnInit {
   autoSuggestSub: Subscription;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['build_number', 'commit_id', 'author', 'status', 'test_summary', 'build_date'];
+  displayedColumns = [
+    'build_number',
+    'component',
+    'commit_id',
+    'author',
+    'build_status',
+    'code_coverage',
+    'test_summary',
+    'build_date'
+  ];
   report_portal_url =
     'http://172.23.255.183:8080/ui/#api_test/launches/all%7Cpage.page=1&page.size=50&page.sort=start_time,number%2CDESC/launch_id?page.page=1&page.size=50&filter.eq.has_childs=false&filter.in.status=FAILED%2CINTERRUPTED&filter.in.type=STEP&page.sort=start_time%2CASC';
 
+  bitUrl = 'https://code.internal.omnius.com/projects/PROJECT/repos/REPO/commits/COMMIT';
   constructor(private apiService: ApiService, private actionService: ActionService) {}
 
   ngOnInit() {
@@ -59,6 +69,12 @@ export class BuildOverviewComponent implements OnInit {
       startWith({}),
       switchMap(() =>
         this.apiService.getBuildDetails(this.sort.direction, this.paginator.pageIndex, this.filter).pipe(
+          map(buildInfo => {
+            buildInfo.forEach(build => {
+              build.build_number = build.tag_name + build.build_number;
+            });
+            return buildInfo;
+          }),
           mergeMap(buildInfo => {
             return this.apiService.getBuildCount(this.filter).pipe(
               map((c: number) => {

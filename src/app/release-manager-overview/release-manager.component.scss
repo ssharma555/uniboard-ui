@@ -1,8 +1,8 @@
 @import "../style.scss";
 
 .release-container {
-  padding: 2rem;
-  background-color: #ebebeb;
+  padding: 0.5rem 2rem;
+  background-color: #e4e5e6;
   height: 100%;
 }
 
@@ -12,23 +12,31 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: end;
+
+  &:hover {
+    .release-btn {
+      background-color: $color-blue;
+      color: white;
+    }
+    .icon-add {
+      fill: white;
+    }
+  }
 }
 
 .icon-add {
   width: 1rem;
   height: 1rem;
-  fill: white;
+  fill: $color-blue;
+  margin-right: 0.5rem;
 }
 
 .release-btn {
-  padding: 0.5rem;
+  padding: 0rem 0.5rem;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 400;
+  color: $color-blue;
   // letter-spacing: 2px;
-
-  &-text {
-    margin-left: 0.5rem;
-  }
 }
 
 .card-container {
@@ -65,6 +73,8 @@
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 2fr 3fr;
+
+  color: $color-blue;
 
   .release-date {
     border-radius: 8px;

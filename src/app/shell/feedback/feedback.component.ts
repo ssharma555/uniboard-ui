@@ -12,7 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class FeedbackComponent implements OnInit {
   feedbackForm: FormGroup;
-  optionValue: any;
+  optionValue: any = 'feature';
   userId: string;
   jiraUrl =
     'https://searchink.atlassian.net/CreateIssueDetails!init.jspa?Create=Create&issuetype=TYPE&pid=11418&reporter=USER&assignee=5c3e185552c9026a4847a997';
@@ -35,7 +35,7 @@ export class FeedbackComponent implements OnInit {
 
   takeFeedback() {
     this.feedbackForm = this.formBuilder.group({
-      feedbackType: new FormControl(),
+      feedbackType: new FormControl(''),
       feedbackValue: new FormControl()
     });
   }

@@ -1,12 +1,27 @@
+@import "../style.scss";
+
 .home-container {
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background-color: $color-background;
+  height: 100vh;
 }
 
 .jira-chart-container {
+  height: 50vh;
   &:first-child {
     margin-right: 2rem;
+  }
+
+  // .card-container {
+  //   display: flex;
+  //   margin-left: 2rem;
+  //   flex-direction: column;
+  // }
+
+  .instructions {
+    margin-left: 2rem;
   }
 }
 
@@ -17,31 +32,39 @@
 
 .title {
   margin-top: 2rem;
+  margin-bottom: 2rem;
 
   .header {
     display: flex;
     align-items: center;
   }
+
+  .msg {
+    margin-top: 1rem;
+  }
 }
 
-.profile-img {
-  width: 4rem;
-  border-radius: 100px;
-  margin-right: 1rem;
-}
-
-.action {
+.action_container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin-top: 2rem;
+  .action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 
-  .input {
-    width: 70%;
+    .input {
+      width: 95%;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      width: 35%;
+    }
   }
 
-  .btn {
-    margin-top: 1rem;
-    width: 25%;
+  .error_msg {
+    color: red;
   }
 }

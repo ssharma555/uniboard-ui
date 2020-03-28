@@ -5,6 +5,8 @@ import { Release } from '@app/models/api.models';
 import { ApiService } from '@app/services/api.service';
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-release-details',
@@ -16,7 +18,8 @@ export class ReleaseDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
     private datePipe: DatePipe,
-    private titleService: Title
+    private titleService: Title,
+    public dialog: MatDialog
   ) {}
   routerSub: Subscription;
   id: string;
@@ -198,19 +201,7 @@ export class ReleaseDetailsComponent implements OnInit {
       this.documents.push({ name: 'Release Note', url: this.releaseDetails.releaseNote });
     }
 
-    this.artifacts.push({ name: 'release build', url: 'https://code.omnius.corp/' });
-
-    // this.dataSource = [
-    //   {'key': 'OPEN', 'value': 90},
-    //   {'key': 'CLOSED', 'value': 100},
-    //   {'key': 'INPROGRESS', 'value': 100},
-    //   {'key': 'UNDER REVIEW', 'value': 100},
-    //   {'key': 'DEPLOYED', 'value': 100}
-    // ]
-  }
-
-  test_open() {
-    window.open('https://www.google.com');
+    this.artifacts.push({ name: 'Release Build - 1.1.0-feature-test17', url: 'https://code.omnius.corp/' });
   }
 
   onSelect(data: any) {
@@ -221,5 +212,28 @@ export class ReleaseDetailsComponent implements OnInit {
       data['name'] +
       '"';
     window.open(url);
+  }
+
+  releaseProduct() {
+    this.apiService.putRelase(this.id).subscribe();
+  }
+
+  confirmDialog(): void {
+    const message = 'Are you sure you want Release ';
+    const secMessage = this.releaseDetails.releaseName;
+
+    const dialogData = new ConfirmDialogModel('Release - ' + secMessage, message, secMessage);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '800px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      var result = dialogResult;
+      if (result) {
+        this.releaseProduct();
+      }
+    });
   }
 }

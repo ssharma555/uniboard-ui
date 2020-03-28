@@ -6,7 +6,7 @@
 }
 
 .release-details-container {
-  padding: 2rem;
+  padding: 0rem 2rem;
   display: grid;
   grid-gap: 1rem;
   background-color: #ebebeb;
@@ -104,4 +104,29 @@
     color: grey;
     margin-top: 0.5rem;
   }
+}
+
+.btn-container {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: end;
+
+  .icon-add {
+    width: 1rem;
+    height: 1rem;
+    fill: white;
+  }
+
+  // .release-btn {
+  //   padding: 0.5rem;
+  //   font-size: 1rem;
+  //   font-weight: 700;
+  //   // letter-spacing: 2px;
+
+  //   &-text {
+  //     margin-left: 0.5rem;
+  //   }
+  // }
 }

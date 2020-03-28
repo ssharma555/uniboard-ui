@@ -1,22 +1,22 @@
 <div class="release-container">
   <div class="btn-container">
-    <button mat-raised-button color="primary" class="release-btn" (click)="addRelease()">
+    <button mat-raised-button class="release-btn" (click)="addRelease()">
       <svg class="icon-add">
-        <use xlink:href="../../assets/symbols.svg#icon-plus"></use>
+        <use xlink:href="../../assets/symbols.svg#icon-rocket1"></use>
       </svg>
-      <span class="release-btn-text">New Release</span>
+      <span class="release-btn-text">Create Release</span>
     </button>
   </div>
 
   <app-loader *ngIf="isLoading" class="inline-loader" [isLoading]="isLoading"></app-loader>
   <div class="release-content" *ngIf="!isLoading">
     <div class="ongoing_release">
-      <h3 mat-line class="section-header">Ongoing Releases</h3>
+      <h4 mat-line class="section-header">ACTIVE RELEASES</h4>
       <h4 mat-line *ngIf="ongoingRelease.length == 0" class="empty-release">No upcoming planned release</h4>
       <div class="card-container">
         <mat-card *ngFor="let release of ongoingRelease" class="release-card">
           <mat-card-header class="card-header">
-            <mat-card-title>{{ release.releaseName }}</mat-card-title>
+            <mat-card-title class="card-title">{{ release.releaseName }}</mat-card-title>
             <mat-card-subtitle>{{ release.releaseTag }}</mat-card-subtitle>
 
             <button
@@ -39,7 +39,7 @@
                   <span>Clone</span>
                 </button>
 
-                <button mat-menu-item (click)="deleteRelease(release)">
+                <button mat-menu-item (click)="confirmDialog(release)">
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>
@@ -57,7 +57,7 @@
           >
             <mat-list-item>
               <div class="card-content">
-                <span>Phase </span>
+                <span>Status </span>
                 <span class="release-phase-text">{{ release.phase | uppercase }}</span>
               </div>
             </mat-list-item>
@@ -76,40 +76,13 @@
 
     <div class="completed_release">
       <div class="ongoing_release">
-        <h3 mat-line class="section-header">Completed Releases</h3>
+        <h4 mat-line class="section-header">COMPLETED RELEASES</h4>
         <h4 mat-line *ngIf="ongoingRelease.length == 0" class="empty-release">No upcoming planned release</h4>
         <div class="card-container">
           <mat-card *ngFor="let release of completedRelease" class="release-card">
             <mat-card-header class="card-header">
               <mat-card-title>{{ release.releaseName }}</mat-card-title>
               <mat-card-subtitle>{{ release.releaseTag }}</mat-card-subtitle>
-
-              <!-- <button
-                mat-icon-button
-                [matMenuTriggerFor]="menu"
-                aria-label="Example icon-button with a menu"
-                class="vert_option_btn"
-              >
-                <mat-icon class="vert-icon">more_vert</mat-icon>
-              </button>
-              <div class="menu_option">
-                <mat-menu #menu="matMenu" class="menu-item">
-                  <button mat-menu-item (click)="editRelease(release)">
-                    <mat-icon>edit</mat-icon>
-                    <span>Modify</span>
-                  </button>
-
-                  <button mat-menu-item (click)="cloneRelease(release)">
-                    <mat-icon>replay</mat-icon>
-                    <span>Clone</span>
-                  </button>
-
-                  <button mat-menu-item (click)="deleteRelease(release)">
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                </mat-menu>
-              </div> -->
             </mat-card-header>
             <mat-divider></mat-divider>
 
@@ -123,7 +96,7 @@
               <mat-list-item>
                 <div class="card-content">
                   <span>Phase </span>
-                  <span class="release-phase-text">{{ release.phase | uppercase }}</span>
+                  <span class="release-phase-text">PRODUCT RELEASED</span>
                 </div>
               </mat-list-item>
               <mat-list-item>
