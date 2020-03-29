@@ -31,12 +31,12 @@ export class AuthenticationGuard implements CanActivate {
           console.log('User = ', result);
           if (result) {
             this.userService.storeUser(result);
+            this.apiService.activateUser(userId).subscribe();
             return true;
           } else {
             if (!this.credentialsService.isAuthenticated()) {
               console.log('navigating to login');
               this.router.navigate(['/login'], { queryParams: { redirect: state.url }, replaceUrl: true });
-              // this.router.navigateByUrl('/login?id='+userId)
               return false;
             }
             console.log('authenticated');

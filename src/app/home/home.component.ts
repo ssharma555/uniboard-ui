@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
     body['bitbucket_token'] = this.token;
 
     this.apiService.updateUser(body, this.userId).subscribe(
-      response => {
+      () => {
         this.is_token_available = true;
         this.bitLoading = true;
         this.apiService.getBitbucketTasks(this.userId).subscribe(response => {
