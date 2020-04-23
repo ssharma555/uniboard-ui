@@ -8,8 +8,8 @@ import { BuildInfo, AutoSuggest, Info, Filter, Release, KeyValueHolder } from '@
 export class ApiService {
   // baseUrl = 'http://172.23.254.171:2480';
   //baseUrl = 'https://searchink.atlassian.net/rest/api/2/project'
-  // baseUrl = 'http://172.23.254.171:5000/api/v1';
-  baseUrl = 'http://localhost:5000/api/v1';
+  baseUrl = 'http://172.23.254.171:5000/api/v1';
+  // baseUrl = 'http://localhost:5000/api/v1';
 
   constructor(private http: HttpClient) {}
 
@@ -67,6 +67,10 @@ export class ApiService {
 
   getReleaseJira(id: string) {
     return this.http.get(this.baseUrl + '/release/jira/' + id);
+  }
+
+  getReleaseCommits(id: string) {
+    return this.http.get(this.baseUrl + '/release/' + id + '/commits');
   }
 
   getUsersForReleaseJira(id: string) {

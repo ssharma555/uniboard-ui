@@ -34,6 +34,7 @@ export class ReleaseDetailsComponent implements OnInit {
   releaseDetailsSub: Subscription;
   jiraDetailsSub: Subscription;
   userListSub: Subscription;
+  commitSub: Subscription;
 
   jiraSectionLoading: boolean = false;
   userSectionLoading: boolean = false;
@@ -95,6 +96,10 @@ export class ReleaseDetailsComponent implements OnInit {
 
             this.jiraSectionLoading = false;
           });
+
+        this.commitSub = this.apiService.getReleaseCommits(this.releaseDetails.releaseTag).subscribe((jira: any[]) => {
+          this.commitSource = jira;
+        });
 
         this.userSectionLoading = true;
         this.userListSub = this.apiService

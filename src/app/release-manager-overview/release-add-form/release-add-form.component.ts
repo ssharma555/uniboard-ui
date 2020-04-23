@@ -88,11 +88,11 @@ export class ReleaseAddFormComponent implements OnInit {
 
     console.log(release, this.selectedProjects);
     this.successMessage = 'Creating the release';
-    // this.apiService.createRelease(release).subscribe((id: string) => {
-    //   release.id = id;
+    this.apiService.createRelease(release).subscribe((id: string) => {
+      release.id = id;
 
-    //   this.nitification.showNotification('Successfully Created the Release');
-    //   this.dialogRef.close(release);
-    // });
+      this.nitification.showNotification('Successfully Created the Release');
+      this.dialogRef.close(release);
+    });
   }
 }

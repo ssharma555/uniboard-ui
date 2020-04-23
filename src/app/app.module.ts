@@ -25,6 +25,7 @@ import { ApiService } from './services/api.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NotificationService } from './services/notification.service';
+import { CustomerModule } from './customer/customer.module';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { NotificationService } from './services/notification.service';
     HomeModule,
     AboutModule,
     BuildOverviewModule,
+    CustomerModule,
     ReleaseManagementModule,
     LoginModule,
     AppRoutingModule,
